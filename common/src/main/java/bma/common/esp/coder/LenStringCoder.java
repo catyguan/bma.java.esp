@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import bma.common.esp.utils.BaseTypeDncoderTool;
 import bma.common.esp.utils.BaseTypeEncoderTool;
 
-public class LenStringCoder extends BaseCoder{
+public class LenStringCoder implements BaseCoder{
 	
 	/**
 	 * @throws IOException 
@@ -46,14 +46,17 @@ public class LenStringCoder extends BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return lenStringDncoder(buf);
 	}
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
-		
+		if (obj instanceof String) {
+			String s = (String) obj;
+			lenStringEncoder(buf,s);
+			return ;
+		}
+		throw new IllegalArgumentException("not string type");		
 	}
 
 }

@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 import org.hamcrest.core.IsInstanceOf;
 
-public class FixInt16Coder extends BaseCoder {
+public class FixInt16Coder implements BaseCoder {
 	
 	/**
 	 * @throws IOException 

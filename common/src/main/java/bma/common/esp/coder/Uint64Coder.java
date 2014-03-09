@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Uint64Coder extends BaseCoder{
+public class Uint64Coder implements BaseCoder{
 	
 	/**
 	 * @throws IOException 
@@ -63,15 +63,18 @@ public class Uint64Coder extends BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return uint64Dncoder(buf);
 	}
 
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
-		
+		if (obj instanceof Long) {
+			Long i = (Long) obj;
+			uint64Encoder(buf,i);
+			return ;
+		}
+		throw new IllegalArgumentException("not long type");		
 	}
 
 }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class StringCoder extends BaseCoder{
+public class StringCoder implements BaseCoder{
 	
 	/**
 	 * @throws IOException 
@@ -40,14 +40,17 @@ public class StringCoder extends BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return stringDncoder(buf);
 	}
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
-		
+		if (obj instanceof String) {
+			String s = (String) obj;
+			stringEncoder(buf,s);
+			return ;
+		}
+		throw new IllegalArgumentException("not string type");
 	}
 
 }

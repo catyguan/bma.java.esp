@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class FixUint32Coder extends BaseCoder{
+public class FixUint32Coder implements BaseCoder{
 	/**
 	 * @throws IOException 
 	 * 
@@ -43,13 +43,16 @@ public class FixUint32Coder extends BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return fixUint32Dncoder(buf);
 	}
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
-		
+		if (obj instanceof Integer) {
+			Integer i = (Integer) obj;
+			fixUint32Encoder(buf,i);
+			return ;
+		}
+		throw new IllegalArgumentException("not int type");		
 	}
 }

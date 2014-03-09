@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import bma.common.esp.common.VarTypeCommon;
 import bma.common.langutil.core.StringUtil;
 
 public class BaseTypeTest {
@@ -141,6 +142,17 @@ public class BaseTypeTest {
 		System.out.println(StringUtil.byte2Hex(bosLS.toByteArray()));
 		ByteArrayInputStream bisLS = new ByteArrayInputStream(bosLS.toByteArray());
 		System.out.println(LenStringCoder.lenStringDncoder(bisLS));
+	}
+	
+	@Test
+	public void testVar() throws IOException {
+		ByteArrayOutputStream bosVar = new ByteArrayOutputStream();
+		int a = 1;
+		VarCoder.varEncoder(bosVar, VarTypeCommon.TYPE_INT32, a);
+		System.out.println(a);
+		System.out.println(StringUtil.byte2Hex(bosVar.toByteArray()));
+		ByteArrayInputStream bisLS = new ByteArrayInputStream(bosVar.toByteArray());
+		System.out.println(VarCoder.varDncoder(bisLS, VarTypeCommon.TYPE_INT32, true));
 	}
 	
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class FixUint16Coder extends BaseCoder{
+public class FixUint16Coder implements BaseCoder{
 
 	/**
 	 * @throws IOException 
@@ -42,14 +42,17 @@ public class FixUint16Coder extends BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return fixUint16Dncoder(buf);
 	}
 
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
-		
+		if (obj instanceof Short) {
+			Short s = (Short) obj;
+			fixUint16Encoder(buf,s);
+			return ;
+		}
+		throw new IllegalArgumentException("not short type");
 	}
 }

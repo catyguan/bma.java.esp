@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Float32Coder extends BaseCoder{
+public class Float32Coder implements BaseCoder{
 	
 	/**
 	 * @throws IOException 
@@ -38,13 +38,17 @@ public class Float32Coder extends BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return float32Dncoder(buf);
 	}
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
+		if (obj instanceof Float) {
+			Float f = (Float) obj;
+			float32Encoder(buf,f);
+			return ;
+		}
+		throw new IllegalArgumentException("not float type");	
 		
 	}
 

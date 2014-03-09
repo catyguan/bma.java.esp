@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Int32Coder extends BaseCoder{
+public class Int32Coder implements BaseCoder{
 	/**
 	 * @throws IOException 
 	 * 
@@ -44,13 +44,16 @@ public class Int32Coder extends BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return int32Dncoder(buf);
 	}
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
-		
+		if (obj instanceof Integer) {
+			Integer i = (Integer) obj;
+			int32Encoder(buf,i);
+			return ;
+		}
+		throw new IllegalArgumentException("not int type");			
 	}
 }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class BooleanCoder extends BaseCoder{
+public class BooleanCoder implements BaseCoder{
 	
 	/**
 	 * @throws IOException 
@@ -42,14 +42,17 @@ public class BooleanCoder extends BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return booleanDncoder(buf);
 	}
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
-		
+		if (obj instanceof Boolean) {
+			Boolean b = (Boolean) obj;
+			booleanEncoder(buf,b);
+			return ;
+		}
+		throw new IllegalArgumentException("not boolean type");
 	}
 
 }

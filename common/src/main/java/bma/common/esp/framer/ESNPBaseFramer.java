@@ -53,6 +53,21 @@ public class ESNPBaseFramer {
 		out.write((byte) (this.framerBodyLength >> 8));
 		out.write((byte) (this.framerBodyLength >> 0));
 	}
+	
+	/**
+	 * 
+	* @Title: toStreamFramerBodyLength 
+	* @Description: 将体大小数据写进流
+	* @param @param out
+	* @param @throws IOException    
+	* @return void    
+	* @throws
+	 */
+	private void toStreamFramerBodyLength(OutputStream out,long dataLength) throws IOException {
+		out.write((byte) (dataLength >> 16));
+		out.write((byte) (dataLength >> 8));
+		out.write((byte) (dataLength >> 0));
+	}
 
 	public void setFramerBodyLength(long framerBodyLength) {
 		this.framerBodyLength = framerBodyLength;
@@ -89,6 +104,22 @@ public class ESNPBaseFramer {
 		typeByte[0] = (byte) this.framerType;
 		out.write(typeByte);
 		this.toStreamFramerBodyLength(out);		
+	}
+	
+	/**
+	 * 
+	* @Title: toOutputStream 
+	* @Description: 将帧类型和体大小写入流
+	* @param @param out
+	* @param @throws IOException    
+	* @return void    
+	* @throws
+	 */
+	public void toOutputStream(OutputStream out,long dataLength) throws IOException{
+		byte[] typeByte = new byte[1];
+		typeByte[0] = (byte) this.framerType;
+		out.write(typeByte);
+		this.toStreamFramerBodyLength(out,dataLength);		
 	}
 
 }

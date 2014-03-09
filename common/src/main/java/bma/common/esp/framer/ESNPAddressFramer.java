@@ -1,13 +1,16 @@
 package bma.common.esp.framer;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import bma.common.esp.coder.Int32Coder;
 import bma.common.esp.coder.LenStringCoder;
+import bma.common.esp.framer.vo.Address;
 
 /**
  * 
@@ -67,6 +70,7 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 		InputStream addressIn = new ByteArrayInputStream(addressByte);
 		
 		Address address;
+		addressList = new ArrayList<Address>();
 		while(addressIn.available() != 0){
 			address = new Address();
 			address.setAddressType(Int32Coder.int32Dncoder(addressIn));
@@ -89,51 +93,15 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 		if(addressList == null || addressList.isEmpty()){
 			return ;
 		}
-		
-		super.toOutputStream(out);	
+			
+		ByteArrayOutputStream adressOut = new ByteArrayOutputStream();
 		for(Address a : addressList){
-			Int32Coder.int32Encoder(out, a.getAddressType());
-			LenStringCoder.lenStringEncoder(out, a.getAddress());
+			Int32Coder.int32Encoder(adressOut, a.getAddressType());
+			LenStringCoder.lenStringEncoder(adressOut, a.getAddress());
 		}
-	}
-
-	/**
-	 * 
-	* @ClassName: Address 
-	* @Description: 地址子类
-	* @author zhongrisheng
-	* @date 2014-3-7 下午04:32:18 
-	*
-	 */
-	class Address {
-		
-		/**
-		 * 地址类型
-		 */
-		private int addressType;
-		
-		/**
-		 * 地址
-		 */
-		private String address;
-
-		public int getAddressType() {
-			return addressType;
-		}
-
-		public void setAddressType(int addressType) {
-			this.addressType = addressType;
-		}
-
-		public String getAddress() {
-			return address;
-		}
-
-		public void setAddress(String address) {
-			this.address = address;
-		}
-		
-		
+		byte[] adressByte = adressOut.toByteArray();
+		super.toOutputStream(out,adressByte.length);	
+		out.write(adressByte);
 	}
 	
 
