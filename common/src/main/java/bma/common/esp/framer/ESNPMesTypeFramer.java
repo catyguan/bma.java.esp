@@ -5,23 +5,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import bma.common.esp.coder.FixUint64Coder;
 import bma.common.esp.coder.Uint32Coder;
 
 /**
  * 
-* @ClassName: ESNPMesNoFramer 
-* @Description: 消息编号帧 
+* @ClassName: ESNPMesTypeFramer 
+* @Description: 消息类型帧  
 * @author zhongrisheng
-* @date 2014-3-7 下午04:23:14 
+* @date 2014-3-10 上午10:26:13 
 *
  */
-public class ESNPMesNoFramer extends ESNPBaseFramer {
-	
-	/**
-	 * ID编号
+public class ESNPMesTypeFramer extends ESNPBaseFramer{
+	/*
+	 * 消息类型
 	 */
-	private long mesNo;
+	private int mesType;
 	
 	/**
 	 * 
@@ -31,55 +29,55 @@ public class ESNPMesNoFramer extends ESNPBaseFramer {
 	* @param in
 	* @throws IOException
 	 */
-	public ESNPMesNoFramer(int framerType,InputStream in) throws IOException{
+	public ESNPMesTypeFramer(int framerType,InputStream in) throws IOException{
 		super.setFramerType(framerType);
 		super.setFramerBodyLength(in);
-		this.setMesNo(in);
+		this.setMesType(in);
 	}
 
-	public ESNPMesNoFramer() {
+	public ESNPMesTypeFramer() {
 		super();
 	}
 
-	public long getMesNo() {
-		return mesNo;
+	public int getMesType() {
+		return mesType;
 	}
 
-	public void setMesNo(long mesNo) {
-		this.mesNo = mesNo;
+	public void setMesType(int mesType) {
+		this.mesType = mesType;
 	}
 	
 	/**
 	 * 
 	* @Title: setMesNo 
-	* @Description: 从流中读取消息编号
+	* @Description: 从流中读取消息类型
 	* @param @param in
 	* @param @throws IOException    
 	* @return void    
 	* @throws
 	 */
-	public void setMesNo(InputStream in) throws IOException {
+	public void setMesType(InputStream in) throws IOException {
 		if(super.getFramerType() == 0 || super.getFramerBodyLength() == 0){
 			return ;
 		}
-		this.mesNo = FixUint64Coder.fixUint64Dncoder(in);
+		this.mesType = Uint32Coder.uint32Dncoder(in);
 	}
 	
 	/**
 	 * 
 	* @Title: mesNoFramerToOutputStream 
-	* @Description: 将消息帧写入流
+	* @Description: 将消息类型帧写入流
 	* @param @param out
 	* @param @throws IOException    
 	* @return void    
 	* @throws
 	 */
-	public void mesNoFramerToOutputStream(OutputStream out) throws IOException{	
-		ByteArrayOutputStream mesNoOut = new ByteArrayOutputStream();
-		FixUint64Coder.fixUint64Encoder(mesNoOut, this.mesNo);
-		byte[] dataByte = mesNoOut.toByteArray();
+	public void mesTypeFramerToOutputStream(OutputStream out) throws IOException{
+		ByteArrayOutputStream mesTypeOut = new ByteArrayOutputStream();
+		Uint32Coder.uint32Encoder(mesTypeOut, this.mesType);
+		byte[] dataByte = mesTypeOut.toByteArray();
 		super.toOutputStream(out,dataByte.length);	
-		out.write(dataByte);		
+		out.write(dataByte);
 	}
 
 	@Override
@@ -87,7 +85,7 @@ public class ESNPMesNoFramer extends ESNPBaseFramer {
 			throws IOException {
 		super.setFramerType(framerType);
 		super.setFramerBodyLength(in);
-		this.setMesNo(in);
-		
+		this.setMesType(in);
 	}
+	
 }

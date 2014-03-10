@@ -103,6 +103,16 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 		super.toOutputStream(out,adressByte.length);	
 		out.write(adressByte);
 	}
+
+
+	@Override
+	public void readInputStream(int framerType, InputStream in)
+			throws IOException {
+		super.setFramerType(framerType);
+		super.setFramerBodyLength(in);
+		this.setAddressList(in);
+		
+	}
 	
 
 }

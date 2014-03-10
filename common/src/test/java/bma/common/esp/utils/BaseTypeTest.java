@@ -3,6 +3,8 @@ package bma.common.esp.utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -132,6 +134,14 @@ public class BaseTypeTest {
 		ByteArrayInputStream bisLS = new ByteArrayInputStream(bosLS.toByteArray());
 		System.out.println(BaseTypeDncoderTool.lenStringDncoder(bisLS));
 	}
+	
+	@Test
+	public void testVarTypeByClass() throws IOException {
+		Byte a = new Byte("1");
+		Class<?> classType = a.getClass(); 
+		System.out.println(BaseTypeTool.getVarTypeByClass(classType.getSimpleName()));
+	}
+	
 	
 
 }

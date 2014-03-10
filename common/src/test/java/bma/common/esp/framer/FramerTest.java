@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.Test;
 
 import bma.common.esp.coder.FixUint64Coder;
+import bma.common.esp.coder.Uint32Coder;
 import bma.common.esp.common.VarTypeCommon;
 import bma.common.esp.framer.vo.Address;
 import bma.common.esp.framer.vo.DataBody;
@@ -26,13 +27,13 @@ public class FramerTest {
 		
 		long id = 88888888;	
 		ESNPMesNoFramer mesNoFramer = new ESNPMesNoFramer();
-		FixUint64Coder.fixUint64Encoder(bosB, id);
-		ByteArrayInputStream bisB = new ByteArrayInputStream(bosB.toByteArray());
+//		FixUint64Coder.fixUint64Encoder(bosB, id);
+//		ByteArrayInputStream bisB = new ByteArrayInputStream(bosB.toByteArray());
 		mesNoFramer.setFramerType(0x11);
-		mesNoFramer.setFramerBodyLength((long)bisB.available());
+//		mesNoFramer.setFramerBodyLength((long)bisB.available());
 		mesNoFramer.setMesNo(id);
 		bosB.close();
-		bisB.close();
+//		bisB.close();
 		
 		ByteArrayOutputStream bos32 = new ByteArrayOutputStream();
 		mesNoFramer.mesNoFramerToOutputStream(bos32);
@@ -42,6 +43,33 @@ public class FramerTest {
 		ByteArrayInputStream bisS = new ByteArrayInputStream(bos32.toByteArray());
 		
 		ESNPMesNoFramer mesNoFramer1 = new ESNPMesNoFramer(bisS.read(), bisS);
+		System.out.println("end");
+		
+	}
+	
+	@Test
+	public void testMesType() throws IOException {
+		
+		ByteArrayOutputStream bosB = new ByteArrayOutputStream();
+		
+		int id = 88888888;	
+		ESNPMesTypeFramer mesTypeFramer = new ESNPMesTypeFramer();
+//		Uint32Coder.uint32Encoder(bosB, id);
+//		ByteArrayInputStream bisB = new ByteArrayInputStream(bosB.toByteArray());
+		mesTypeFramer.setFramerType(0x13);
+//		mesTypeFramer.setFramerBodyLength((long)bisB.available());
+		mesTypeFramer.setMesType(id);
+		bosB.close();
+//		bisB.close();
+		
+		ByteArrayOutputStream bos32 = new ByteArrayOutputStream();
+		mesTypeFramer.mesTypeFramerToOutputStream(bos32);
+		System.out.println(StringUtil.byte2Hex(bos32.toByteArray()));
+		
+		
+		ByteArrayInputStream bisS = new ByteArrayInputStream(bos32.toByteArray());
+		
+		ESNPMesTypeFramer mesTypeFramer1 = new ESNPMesTypeFramer(bisS.read(), bisS);
 		System.out.println("end");
 		
 	}
