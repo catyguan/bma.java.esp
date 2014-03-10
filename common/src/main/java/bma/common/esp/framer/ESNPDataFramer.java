@@ -106,6 +106,14 @@ public class ESNPDataFramer extends ESNPBaseFramer {
 		out.write(dataByte);
 	}
 
+	@Override
+	public void readInputStream(int framerType, InputStream in)
+			throws IOException {
+		super.setFramerType(framerType);
+		super.setFramerBodyLength(in);
+		this.setDataList(in);		
+	}
+
 	
 
 }

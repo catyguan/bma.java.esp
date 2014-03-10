@@ -12,7 +12,7 @@ import java.io.OutputStream;
 * @date 2014-3-7 下午03:38:04 
 *
  */
-public class ESNPBaseFramer {
+public abstract class ESNPBaseFramer {
 	
 	/**
 	 * 帧类型
@@ -121,5 +121,16 @@ public class ESNPBaseFramer {
 		out.write(typeByte);
 		this.toStreamFramerBodyLength(out,dataLength);		
 	}
+	
+	/**
+	 * 
+	* @Title: readInputStream 
+	* @Description: 从流中初始化对象
+	* @param @param framerType
+	* @param @param in    
+	* @return void    
+	* @throws
+	 */
+	public abstract void readInputStream(int framerType,InputStream in) throws IOException;
 
 }

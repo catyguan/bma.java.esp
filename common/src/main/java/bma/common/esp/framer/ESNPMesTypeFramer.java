@@ -79,5 +79,13 @@ public class ESNPMesTypeFramer extends ESNPBaseFramer{
 		super.toOutputStream(out,dataByte.length);	
 		out.write(dataByte);
 	}
+
+	@Override
+	public void readInputStream(int framerType, InputStream in)
+			throws IOException {
+		super.setFramerType(framerType);
+		super.setFramerBodyLength(in);
+		this.setMesType(in);
+	}
 	
 }
