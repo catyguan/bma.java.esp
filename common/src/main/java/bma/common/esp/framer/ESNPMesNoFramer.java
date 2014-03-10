@@ -1,10 +1,12 @@
 package bma.common.esp.framer;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import bma.common.esp.coder.FixUint64Coder;
+import bma.common.esp.coder.Uint32Coder;
 
 /**
  * 
@@ -72,8 +74,11 @@ public class ESNPMesNoFramer extends ESNPBaseFramer {
 	* @return void    
 	* @throws
 	 */
-	public void mesNoFramerToOutputStream(OutputStream out) throws IOException{
-		super.toOutputStream(out);
-		FixUint64Coder.fixUint64Encoder(out, this.mesNo);
+	public void mesNoFramerToOutputStream(OutputStream out) throws IOException{	
+		ByteArrayOutputStream mesNoOut = new ByteArrayOutputStream();
+		FixUint64Coder.fixUint64Encoder(mesNoOut, this.mesNo);
+		byte[] dataByte = mesNoOut.toByteArray();
+		super.toOutputStream(out,dataByte.length);	
+		out.write(dataByte);		
 	}
 }

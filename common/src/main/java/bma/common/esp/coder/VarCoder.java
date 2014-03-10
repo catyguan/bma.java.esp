@@ -5,13 +5,21 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import bma.common.esp.common.VarTypeCommon;
+import bma.common.esp.utils.BaseTypeTool;
 
-import com.google.gson.Gson;
 
 public class VarCoder implements BaseCoder {
+	
+	public static void varEncoder(OutputStream buf, Object obj) throws IOException{
+		if(obj == null){
+			return ;
+		}
+		Class<?> classType = obj.getClass(); 
+		varEncoder(buf,BaseTypeTool.getVarTypeByClass(classType.getSimpleName()),obj);
+	}
 
 
-	public static void varEncoder(OutputStream buf,int type, Object obj) throws IOException{		
+	public static void varEncoder(OutputStream buf,int type, Object obj) throws IOException{
 		switch (type) {
 		case VarTypeCommon.TYPE_INT32://int32
 			if (obj instanceof Integer) {
@@ -58,38 +66,27 @@ public class VarCoder implements BaseCoder {
 		}
 	}
 	
+	public static Object varDncoder(InputStream buf) throws IOException{
+		int type = 0;
+		return varDncoder(buf,type,true);
+	}
+	
 
 	public static Object varDncoder(InputStream buf,int type,boolean readType) throws IOException{
-		int t = 0;
 		if(readType){
-			t = buf.read();
+			type = buf.read();
 		}
 		switch (type) {
 		case VarTypeCommon.TYPE_INT32://int32
-			if(!readType || (t == VarTypeCommon.TYPE_INT32 && readType)){
-				return Int32Coder.int32Dncoder(buf);
-			}
-			throw new IllegalArgumentException("var type not match");
+			return Int32Coder.int32Dncoder(buf);
 		case VarTypeCommon.TYPE_INT64://int64
-			if(!readType || (t == VarTypeCommon.TYPE_INT64 && readType)){
-				return Int64Coder.int64Dncoder(buf);
-			}
-			throw new IllegalArgumentException("var type not match");
+			return Int64Coder.int64Dncoder(buf);
 		case VarTypeCommon.TYPE_FLOAT32://float32
-			if(!readType || (t == VarTypeCommon.TYPE_FLOAT32 && readType)){
-				return Float32Coder.float32Dncoder(buf);
-			}
-			throw new IllegalArgumentException("var type not match");
+			return Float32Coder.float32Dncoder(buf);
 		case VarTypeCommon.TYPE_FLOAT64://float64
-			if(!readType || (t == VarTypeCommon.TYPE_FLOAT64 && readType)){
-				return Float64Coder.float64Dncoder(buf);
-			}
-			throw new IllegalArgumentException("var type not match");
+			return Float64Coder.float64Dncoder(buf);
 		case VarTypeCommon.TYPE_LEN_STRING://lenString
-			if(!readType || (t == VarTypeCommon.TYPE_LEN_STRING && readType)){
-				return LenStringCoder.lenStringDncoder(buf);
-			}
-			throw new IllegalArgumentException("var type not match");
+			return LenStringCoder.lenStringDncoder(buf);
 		default:
 			break;
 		}
@@ -99,14 +96,12 @@ public class VarCoder implements BaseCoder {
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		return varDncoder(buf);
 	}
 
 
 	@Override
 	public void encoder(OutputStream buf, Object obj) throws IOException {
-		// TODO Auto-generated method stub
-		
+		varEncoder(buf,obj);	
 	}
 }
