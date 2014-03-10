@@ -24,9 +24,21 @@ public class ESNPDataFramer extends ESNPBaseFramer {
 	
 	
 	/**
-	 * 数据list
+	 * 数据名
 	 */
-	private List<DataBody> dataList;
+	private String dataName;
+	
+	/**
+	 * 数据类型
+	 */
+	private int dataType;
+	
+	
+	/**
+	 * 数据
+	 */
+	private Object data;
+	
 	
 	public ESNPDataFramer(){
 		super();
@@ -35,17 +47,33 @@ public class ESNPDataFramer extends ESNPBaseFramer {
 	public ESNPDataFramer(int framerType,InputStream in) throws IOException{
 		super.setFramerType(framerType);
 		super.setFramerBodyLength(in);
-		this.setDataList(in);
+		this.setDataFramer(in);
 	}
-	
-	public List<DataBody> getDataList() {
-		return dataList;
+		
+	public String getDataName() {
+		return dataName;
 	}
 
-	public void setDataList(List<DataBody> dataList) {
-		this.dataList = dataList;
+	public void setDataName(String dataName) {
+		this.dataName = dataName;
 	}
-	
+
+	public int getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(int dataType) {
+		this.dataType = dataType;
+	}
+
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
+	}
+
 	/**
 	 * 
 	* @Title: setDataList 
@@ -55,7 +83,7 @@ public class ESNPDataFramer extends ESNPBaseFramer {
 	* @return void    
 	* @throws
 	 */
-	public void setDataList(InputStream in) throws IOException{
+	public void setDataFramer(InputStream in) throws IOException{
 		if(super.getFramerType() == 0 || super.getFramerBodyLength() == 0){
 			return ;
 		}
@@ -68,17 +96,11 @@ public class ESNPDataFramer extends ESNPBaseFramer {
 		in.read(dataByte, 0, length);
 		InputStream dataIn = new ByteArrayInputStream(dataByte);
 		
-		DataBody dataBody;
-		dataList = new ArrayList<DataBody>();
 		int t;
-		while(dataIn.available() != 0){
-			dataBody = new DataBody();
-			dataBody.setDataName(LenStringCoder.lenStringDncoder(dataIn));
-			t = dataIn.read();
-			dataBody.setDataType(t);
-			dataBody.setData(VarCoder.varDncoder(dataIn, t, false));
-			dataList.add(dataBody);
-		}	
+		this.setDataName(LenStringCoder.lenStringDncoder(dataIn));
+		t = dataIn.read();
+		this.setDataType(t);
+		this.setData(VarCoder.varDncoder(dataIn, t, false));
 		dataIn.close();
 	}
 	
@@ -92,15 +114,13 @@ public class ESNPDataFramer extends ESNPBaseFramer {
 	* @throws
 	 */
 	public void dataFramerToOutputStream(OutputStream out) throws IOException{
-		if(dataList == null || dataList.isEmpty()){
+		if(dataName == null || data == null){
 			return ;
 		}
 		
 		ByteArrayOutputStream dataOut = new ByteArrayOutputStream();
-		for(DataBody d : dataList){
-			LenStringCoder.lenStringEncoder(dataOut, d.getDataName());
-			VarCoder.varEncoder(dataOut, d.getDataType(), d.getData());
-		}
+		LenStringCoder.lenStringEncoder(dataOut, dataName);
+		VarCoder.varEncoder(dataOut, dataType, data);
 		byte[] dataByte = dataOut.toByteArray();
 		super.toOutputStream(out,dataByte.length);	
 		out.write(dataByte);
@@ -111,7 +131,7 @@ public class ESNPDataFramer extends ESNPBaseFramer {
 			throws IOException {
 		super.setFramerType(framerType);
 		super.setFramerBodyLength(in);
-		this.setDataList(in);		
+		this.setDataFramer(in);		
 	}
 
 	

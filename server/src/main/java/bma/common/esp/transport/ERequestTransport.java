@@ -1,5 +1,8 @@
 package bma.common.esp.transport;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bma.common.esp.framer.ESNPAddressFramer;
 import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.framer.ESNPMesNoFramer;
@@ -28,12 +31,25 @@ public class ERequestTransport {
 	/**
 	 * 地址
 	 */
-	private ESNPAddressFramer address;
+	private List<ESNPAddressFramer> addressList;
 	
 	/**
 	 * 数据
 	 */
-	private ESNPDataFramer data;
+	private List<ESNPDataFramer> dataList;
+	
+	public ERequestTransport(){
+		addressList = new ArrayList<ESNPAddressFramer>();
+		dataList = new ArrayList<ESNPDataFramer>();
+	}
+	
+	public void addAddressFramer(ESNPAddressFramer af){
+		this.addressList.add(af);
+	}
+	
+	public void addDataFramer(ESNPDataFramer df){
+		this.dataList.add(df);
+	}
 
 	public ESNPMesNoFramer getMesNo() {
 		return mesNo;
@@ -51,21 +67,23 @@ public class ERequestTransport {
 		this.mesType = mesType;
 	}
 
-	public ESNPAddressFramer getAddress() {
-		return address;
+	public List<ESNPAddressFramer> getAddressList() {
+		return addressList;
 	}
 
-	public void setAddress(ESNPAddressFramer address) {
-		this.address = address;
+	public void setAddressList(List<ESNPAddressFramer> addressList) {
+		this.addressList = addressList;
 	}
 
-	public ESNPDataFramer getData() {
-		return data;
+	public List<ESNPDataFramer> getDataList() {
+		return dataList;
 	}
 
-	public void setData(ESNPDataFramer data) {
-		this.data = data;
+	public void setDataList(List<ESNPDataFramer> dataList) {
+		this.dataList = dataList;
 	}
+
+	
 	
 	
 	

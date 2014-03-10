@@ -77,22 +77,10 @@ public class FramerTest {
 	@Test
 	public void testAddress() throws IOException {
 		
-		List<Address> aList = new ArrayList<Address>();
-		
-		Address address1 = new Address();
-		address1.setAddressType(40);
-		address1.setAddress("administrator");
-		
-		Address address2 = new Address();
-		address2.setAddressType(20);
-		address2.setAddress("add");
-		
-		aList.add(address1);
-		aList.add(address2);
-		
 		ESNPAddressFramer af = new ESNPAddressFramer();
 		af.setFramerType(0x17);
-		af.setAddressList(aList);
+		af.setAddressType(40);
+		af.setAddress("administrator");
 		
 		ByteArrayOutputStream bos32 = new ByteArrayOutputStream();
 		af.addressFramerToOutputStream(bos32);
@@ -108,27 +96,14 @@ public class FramerTest {
 	@Test
 	public void testData() throws IOException {
 		
-		List<DataBody> dList = new ArrayList<DataBody>();
-		
 		int a = 1;
 		int b = 2;
 		
-		DataBody dataBody1 = new DataBody();
-		dataBody1.setDataName("a");
-		dataBody1.setDataType(VarTypeCommon.TYPE_INT32);
-		dataBody1.setData(a);
-		
-		DataBody dataBody2 = new DataBody();
-		dataBody2.setDataName("b");
-		dataBody2.setDataType(VarTypeCommon.TYPE_INT32);
-		dataBody2.setData(b);
-		
-		dList.add(dataBody1);
-		dList.add(dataBody2);
-		
 		ESNPDataFramer af = new ESNPDataFramer();
 		af.setFramerType(0x15);
-		af.setDataList(dList);
+		af.setDataName("a");
+		af.setDataType(VarTypeCommon.TYPE_INT32);
+		af.setData(a);
 		
 		ByteArrayOutputStream bos32 = new ByteArrayOutputStream();
 		af.dataFramerToOutputStream(bos32);

@@ -11,7 +11,7 @@ import bma.common.esp.framer.ESNPMesTypeFramer;
 
 public class FramerDncoderFactory {
 	
-	public static void getFramer(ERequestTransport eRequest,InputStream in,int framerType) throws IOException{
+	public static void getERequestFramer(ERequestTransport eRequest,InputStream in,int framerType) throws IOException{
 		
 		switch (framerType) {
 		case FramerCommon.FRAMER_TYPE_ID:
@@ -22,7 +22,7 @@ public class FramerDncoderFactory {
 		case FramerCommon.FRAMER_TYPE_ADDRESS:
 			ESNPAddressFramer af = new ESNPAddressFramer();
 			af.readInputStream(framerType, in);
-			eRequest.setAddress(af);
+			eRequest.addAddressFramer(af);
 			return ;
 		case FramerCommon.FRAMER_TYPE_TYPE:
 			ESNPMesTypeFramer mtf = new ESNPMesTypeFramer();
@@ -32,13 +32,12 @@ public class FramerDncoderFactory {
 		case FramerCommon.FRAMER_TYPE_DATA:
 			ESNPDataFramer df = new ESNPDataFramer();
 			df.readInputStream(framerType, in);
-			eRequest.setData(df);
+			eRequest.addDataFramer(df);
 			return ;
 		default:
 			break;
 		}
 		return;
 	}
-	
 
 }

@@ -23,9 +23,30 @@ import bma.common.esp.framer.vo.Address;
 public class ESNPAddressFramer extends ESNPBaseFramer {
 	
 	/**
+	 * 地址类型
+	 */
+	private int addressType;
+	
+	/**
 	 * 地址
 	 */
-	private List<Address> addressList;
+	private String address;
+
+	public int getAddressType() {
+		return addressType;
+	}
+
+	public void setAddressType(int addressType) {
+		this.addressType = addressType;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	
 	public ESNPAddressFramer() {
 		super();
@@ -35,16 +56,7 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 	public ESNPAddressFramer(int framerType,InputStream in) throws IOException{
 		super.setFramerType(framerType);
 		super.setFramerBodyLength(in);
-		this.setAddressList(in);
-	}
-	
-		
-	public List<Address> getAddressList() {
-		return addressList;
-	}
-
-	public void setAddressList(List<Address> addressList) {
-		this.addressList = addressList;
+		this.setAddressFramer(in);
 	}
 	
 	/**
@@ -56,7 +68,7 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 	* @return void    
 	* @throws
 	 */
-	public void setAddressList(InputStream in) throws IOException {
+	public void setAddressFramer(InputStream in) throws IOException {
 		if(super.getFramerType() == 0 || super.getFramerBodyLength() == 0){
 			return ;
 		}
@@ -69,14 +81,9 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 		in.read(addressByte, 0, length);
 		InputStream addressIn = new ByteArrayInputStream(addressByte);
 		
-		Address address;
-		addressList = new ArrayList<Address>();
-		while(addressIn.available() != 0){
-			address = new Address();
-			address.setAddressType(Int32Coder.int32Dncoder(addressIn));
-			address.setAddress(LenStringCoder.lenStringDncoder(addressIn));
-			addressList.add(address);
-		}	
+		this.setAddressType(Int32Coder.int32Dncoder(addressIn));
+		this.setAddress(LenStringCoder.lenStringDncoder(addressIn));
+
 		addressIn.close();
 	}
 	
@@ -90,15 +97,15 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 	* @throws
 	 */
 	public void addressFramerToOutputStream(OutputStream out) throws IOException{
-		if(addressList == null || addressList.isEmpty()){
+		if(addressType == 0 || address == null){
 			return ;
 		}
 			
 		ByteArrayOutputStream adressOut = new ByteArrayOutputStream();
-		for(Address a : addressList){
-			Int32Coder.int32Encoder(adressOut, a.getAddressType());
-			LenStringCoder.lenStringEncoder(adressOut, a.getAddress());
-		}
+
+		Int32Coder.int32Encoder(adressOut, this.getAddressType());
+		LenStringCoder.lenStringEncoder(adressOut, this.getAddress());
+
 		byte[] adressByte = adressOut.toByteArray();
 		super.toOutputStream(out,adressByte.length);	
 		out.write(adressByte);
@@ -110,7 +117,7 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 			throws IOException {
 		super.setFramerType(framerType);
 		super.setFramerBodyLength(in);
-		this.setAddressList(in);
+		this.setAddressFramer(in);
 		
 	}
 	

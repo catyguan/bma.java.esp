@@ -7,6 +7,7 @@ import java.io.OutputStream;
 
 import bma.common.esp.coder.FixUint64Coder;
 import bma.common.esp.coder.Uint32Coder;
+import bma.common.esp.common.FramerCommon;
 
 /**
  * 
@@ -89,5 +90,17 @@ public class ESNPMesNoFramer extends ESNPBaseFramer {
 		super.setFramerBodyLength(in);
 		this.setMesNo(in);
 		
+	}
+	
+	/**
+	 * 生成源帧
+	 * @param mnf
+	 * @return
+	 */
+	public ESNPMesSnoFramer tranToMesSnoFramer(){
+		ESNPMesSnoFramer msf = new ESNPMesSnoFramer();
+		msf.setMesSno(this.getMesNo());
+		msf.setFramerType(FramerCommon.FRAMER_TYPE_SID);
+		return msf;
 	}
 }

@@ -50,9 +50,9 @@ public class ESNPFrameReader extends FrameReaderDecoder{
 
 	public static final void encodeFrameSize(final int frameSize,
 			final byte[] buf) {
-		buf[0] = (byte) (0xff & (frameSize >> 16));
-		buf[1] = (byte) (0xff & (frameSize >> 8));
-		buf[2] = (byte) (0xff & (frameSize));
+		buf[1] = (byte) (0xff & (frameSize >> 16));
+		buf[2] = (byte) (0xff & (frameSize >> 8));
+		buf[3] = (byte) (0xff & (frameSize));
 	}
 	
 }

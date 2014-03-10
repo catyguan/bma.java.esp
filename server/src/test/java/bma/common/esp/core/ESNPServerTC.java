@@ -27,6 +27,8 @@ public class ESNPServerTC {
 
 	@Test
 	public void server_file() {
+		System.out.println(UUID.randomUUID().toString().replaceAll("-", "o"));
+		
 		ESNPServer s = server();
 		s.start();
 		ObjectUtil.waitFor(this, 6000 * 1000);

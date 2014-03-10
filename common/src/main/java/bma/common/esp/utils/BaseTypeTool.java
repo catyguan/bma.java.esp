@@ -47,6 +47,10 @@ public class BaseTypeTool {
 		}
 	}
 	
+	public static long getRandomID(){
+		return (long)(Math.random()*Long.MAX_VALUE);
+	}
+	
 	
 
 }

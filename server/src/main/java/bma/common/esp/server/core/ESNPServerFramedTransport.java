@@ -52,9 +52,9 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 		int fType;
 		while(in.available() > 0){
 			fType = in.read();
-			FramerDncoderFactory.getFramer(eRequest, in, fType);
+			FramerDncoderFactory.getERequestFramer(eRequest, in, fType);
 		}
-		
+		readBuffer.resetReaderIndex();
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 	* @throws
 	 */
 	public void read(EResponseTransport eResponse){
-		
+
 	}
 	
 	public int read(byte[] buf, int off, int len){

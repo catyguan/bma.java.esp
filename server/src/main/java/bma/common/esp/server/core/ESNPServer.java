@@ -10,8 +10,12 @@ import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
 
+import bma.common.esp.common.FramerCommon;
+import bma.common.esp.framer.ESNPMesNoFramer;
 import bma.common.esp.server.frame.ESNPFrameReader;
 import bma.common.esp.transport.ERequestTransport;
+import bma.common.esp.transport.EResponseTransport;
+import bma.common.esp.utils.BaseTypeTool;
 import bma.common.netty.NettyServer;
 
 public class ESNPServer extends NettyServer{
@@ -37,7 +41,7 @@ public class ESNPServer extends NettyServer{
 				return msg;
 			}
 		});
-		pipeline.addLast("main", new Handler());
+		pipeline.addLast("processer", new Handler());
 		
 		
 	}
@@ -55,6 +59,15 @@ public class ESNPServer extends NettyServer{
 			
 			ERequestTransport eRequest = new ERequestTransport();
 			t.read(eRequest);
+			
+			EResponseTransport eResponse = new EResponseTransport();
+			
+			ESNPMesNoFramer mnf = new ESNPMesNoFramer();
+			mnf.setFramerType(FramerCommon.FRAMER_TYPE_ID);
+			mnf.setMesNo(BaseTypeTool.getRandomID());
+			
+			eResponse.setMesNo(mnf);
+			eResponse.setMesSno(eRequest.getMesNo().tranToMesSnoFramer());		
 			
 			System.out.println("SUCCESS!");
 
