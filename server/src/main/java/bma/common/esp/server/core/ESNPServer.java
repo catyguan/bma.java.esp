@@ -88,7 +88,7 @@ public class ESNPServer extends NettyServer{
 			//服务器分发请求
 			processor.processor(t, eRequest, eResponse);
 			
-			System.out.println("SUCCESS!");
+			log.info("SUCCESS");
 
 		}
 

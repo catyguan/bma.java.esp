@@ -8,6 +8,9 @@ import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
 
 public class TestServer implements Test.Iface {
+	
+	final org.slf4j.Logger log = org.slf4j.LoggerFactory
+	.getLogger(TestServer.class);
 
 	@Override
 	public void add(ESNPServerTransport eTransport,
@@ -27,7 +30,7 @@ public class TestServer implements Test.Iface {
 		eTransport.write(eResponse);
 		eTransport.flush();
 		
-		System.out.println("AAAA");
+		log.info("AAAAAAA");
 	}
 
 }
