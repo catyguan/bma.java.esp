@@ -11,12 +11,12 @@ import org.jboss.netty.channel.Channel;
 
 import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.server.frame.ESNPFrameReader;
-import bma.common.esp.transport.ERequestTransport;
-import bma.common.esp.transport.EResponseTransport;
+import bma.common.esp.transport.ERequest;
+import bma.common.esp.transport.EResponse;
 import bma.common.esp.transport.FramerDncoderFactory;
 import bma.common.netty.SupportedNettyChannel;
 
-public class ESNPServerFramedTransport implements SupportedNettyChannel{
+public class ESNPServerTransport implements SupportedNettyChannel{
 
 	protected Channel channel;
 	private ChannelBuffer readBuffer;
@@ -26,7 +26,7 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 	 */
 	protected ChannelBuffer writeBuffer = ChannelBuffers.dynamicBuffer(1024);
 	
-	public ESNPServerFramedTransport(Channel ch, ChannelBuffer rcb){
+	public ESNPServerTransport(Channel ch, ChannelBuffer rcb){
 		this.channel = ch;
 		this.readBuffer = rcb;
 	}
@@ -46,7 +46,7 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 	* @return void    
 	* @throws
 	 */
-	public void read(ERequestTransport eRequest) throws IOException{
+	public void read(ERequest eRequest) throws IOException{
 		int size = readBuffer.readableBytes();
 		byte[] dataByte = new byte[size];
 		readBuffer.readBytes(dataByte);
@@ -58,18 +58,6 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 			FramerDncoderFactory.getERequestFramer(eRequest, in, fType);
 		}
 		readBuffer.resetReaderIndex();
-	}
-	
-	/**
-	 * 
-	* @Title: read 
-	* @Description: 从流中获取响应对象
-	* @param @param eResponse    
-	* @return void    
-	* @throws
-	 */
-	public void read(EResponseTransport eResponse){
-
 	}
 	
 	public int read(byte[] buf, int off, int len){
@@ -90,7 +78,7 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 	* @return void    
 	* @throws
 	 */
-	public void write(ERequestTransport eRequest){
+	public void write(ERequest eRequest){
 		
 	}
 	
@@ -103,7 +91,7 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 	* @return void    
 	* @throws
 	 */
-	public void write(EResponseTransport eResponse) throws IOException{
+	public void write(EResponse eResponse) throws IOException{
 		ByteArrayOutputStream tmpBAOut = new ByteArrayOutputStream();
 		eResponse.getMesNo().mesNoFramerToOutputStream(tmpBAOut);
 		eResponse.getMesSno().mesSnoFramerToOutputStream(tmpBAOut);

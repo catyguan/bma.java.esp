@@ -2,12 +2,12 @@ package bma.common.esp.server.processor;
 
 import java.io.IOException;
 
-import bma.common.esp.server.core.ESNPServerFramedTransport;
-import bma.common.esp.transport.ERequestTransport;
-import bma.common.esp.transport.EResponseTransport;
+import bma.common.esp.server.core.ESNPServerTransport;
+import bma.common.esp.transport.ERequest;
+import bma.common.esp.transport.EResponse;
 
 public interface EProcessor {
 	
-	public void processor(ESNPServerFramedTransport eTransport,ERequestTransport eRequest,EResponseTransport eResponse) throws IOException;
+	public void processor(ESNPServerTransport eTransport,ERequest eRequest,EResponse eResponse) throws IOException;
 
 }

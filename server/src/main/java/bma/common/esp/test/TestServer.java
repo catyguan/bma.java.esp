@@ -7,15 +7,15 @@ import org.hamcrest.core.IsInstanceOf;
 
 import bma.common.esp.common.FramerCommon;
 import bma.common.esp.framer.ESNPDataFramer;
-import bma.common.esp.server.core.ESNPServerFramedTransport;
-import bma.common.esp.transport.ERequestTransport;
-import bma.common.esp.transport.EResponseTransport;
+import bma.common.esp.server.core.ESNPServerTransport;
+import bma.common.esp.transport.ERequest;
+import bma.common.esp.transport.EResponse;
 
 public class TestServer implements Test.Iface {
 
 	@Override
-	public void add(ESNPServerFramedTransport eTransport,
-			ERequestTransport eRequest, EResponseTransport eResponse) throws IOException {
+	public void add(ESNPServerTransport eTransport,
+			ERequest eRequest, EResponse eResponse) throws IOException {
 
 		Map<String, Object> dataMap = eRequest.getData();
 		

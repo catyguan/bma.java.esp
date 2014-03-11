@@ -2,11 +2,11 @@ package bma.common.esp.test;
 
 import java.io.IOException;
 
-import bma.common.esp.server.core.ESNPServerFramedTransport;
+import bma.common.esp.server.core.ESNPServerTransport;
 import bma.common.esp.server.processor.EFunction;
 import bma.common.esp.server.processor.EHandler;
-import bma.common.esp.transport.ERequestTransport;
-import bma.common.esp.transport.EResponseTransport;
+import bma.common.esp.transport.ERequest;
+import bma.common.esp.transport.EResponse;
 
 public class Test extends EHandler{
 	
@@ -14,8 +14,8 @@ public class Test extends EHandler{
 
 	public interface Iface{
 		
-		public void add(ESNPServerFramedTransport eTransport,
-				ERequestTransport eRequest, EResponseTransport eResponse) throws IOException;
+		public void add(ESNPServerTransport eTransport,
+				ERequest eRequest, EResponse eResponse) throws IOException;
 	}
 	
 	public Test(){
@@ -25,8 +25,8 @@ public class Test extends EHandler{
 	public class Add extends EFunction{
 
 		@Override
-		public void execute(ESNPServerFramedTransport eTransport,
-				ERequestTransport eRequest, EResponseTransport eResponse) throws IOException {
+		public void execute(ESNPServerTransport eTransport,
+				ERequest eRequest, EResponse eResponse) throws IOException {
 			iface.add(eTransport, eRequest, eResponse);
 		}
 	}

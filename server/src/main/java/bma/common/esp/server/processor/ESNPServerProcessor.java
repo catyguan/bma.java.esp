@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import bma.common.esp.framer.ESNPAddressFramer;
-import bma.common.esp.server.core.ESNPServerFramedTransport;
-import bma.common.esp.transport.ERequestTransport;
-import bma.common.esp.transport.EResponseTransport;
+import bma.common.esp.server.core.ESNPServerTransport;
+import bma.common.esp.transport.ERequest;
+import bma.common.esp.transport.EResponse;
 
 public class ESNPServerProcessor implements EProcessor{
 	
@@ -18,8 +18,8 @@ public class ESNPServerProcessor implements EProcessor{
 	private Map<String,EHandler> handleMap;
 
 	@Override
-	public void processor(ESNPServerFramedTransport eTransport,
-			ERequestTransport eRequest, EResponseTransport eResponse) throws IOException {
+	public void processor(ESNPServerTransport eTransport,
+			ERequest eRequest, EResponse eResponse) throws IOException {
 		
 		List<ESNPAddressFramer> adList = eRequest.getAddressList();
 		
@@ -29,14 +29,13 @@ public class ESNPServerProcessor implements EProcessor{
 		EHandler handle = handleMap.get(adMap.get(30));
 
 		//获取操作
-		handle.getFunctionMap();
 		EFunction function = handle.getFunctionMap().get(adMap.get(20));
 		
 		//执行
 		function.execute(eTransport, eRequest, eResponse);	
 	}
 	
-	private Map<Integer,String> getAddressService(ERequestTransport eRequest){
+	private Map<Integer,String> getAddressService(ERequest eRequest){
 		Map<Integer,String> adMap = new HashMap<Integer, String>();
 		List<ESNPAddressFramer> afList = eRequest.getAddressList();
 		for(ESNPAddressFramer af : afList){

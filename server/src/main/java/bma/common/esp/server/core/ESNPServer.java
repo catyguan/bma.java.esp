@@ -14,8 +14,8 @@ import bma.common.esp.framer.ESNPMesNoFramer;
 import bma.common.esp.framer.ESNPMesTypeFramer;
 import bma.common.esp.server.frame.ESNPFrameReader;
 import bma.common.esp.server.processor.ESNPServerProcessor;
-import bma.common.esp.transport.ERequestTransport;
-import bma.common.esp.transport.EResponseTransport;
+import bma.common.esp.transport.ERequest;
+import bma.common.esp.transport.EResponse;
 import bma.common.esp.utils.BaseTypeTool;
 import bma.common.netty.NettyServer;
 
@@ -45,7 +45,7 @@ public class ESNPServer extends NettyServer{
 					Object msg) throws Exception {
 				if (msg instanceof ChannelBuffer) {
 					ChannelBuffer cb = (ChannelBuffer) msg;
-					ESNPServerFramedTransport t = new ESNPServerFramedTransport(
+					ESNPServerTransport t = new ESNPServerTransport(
 							ctx.getChannel(), cb);
 					return t;
 				}
@@ -63,15 +63,15 @@ public class ESNPServer extends NettyServer{
 		public void messageReceived(final ChannelHandlerContext nctx,
 				MessageEvent e) throws Exception {
 			Object obj = e.getMessage();
-			if( ! (obj instanceof ESNPServerFramedTransport)){
+			if( ! (obj instanceof ESNPServerTransport)){
 				return;
 			}
-			ESNPServerFramedTransport t = (ESNPServerFramedTransport) obj;
+			ESNPServerTransport t = (ESNPServerTransport) obj;
 			
-			ERequestTransport eRequest = new ERequestTransport();
+			ERequest eRequest = new ERequest();
 			t.read(eRequest);
 			
-			EResponseTransport eResponse = new EResponseTransport();
+			EResponse eResponse = new EResponse();
 			
 			ESNPMesNoFramer mnf = new ESNPMesNoFramer();
 			mnf.setFramerType(FramerCommon.FRAMER_TYPE_ID);

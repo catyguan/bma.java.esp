@@ -11,7 +11,7 @@ import bma.common.esp.framer.ESNPMesTypeFramer;
 
 public class FramerDncoderFactory {
 	
-	public static void getERequestFramer(ERequestTransport eRequest,InputStream in,int framerType) throws IOException{
+	public static void getERequestFramer(ERequest eRequest,InputStream in,int framerType) throws IOException{
 		
 		switch (framerType) {
 		case FramerCommon.FRAMER_TYPE_ID:
