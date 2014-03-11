@@ -5,12 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import bma.common.esp.coder.LenStringCoder;
 import bma.common.esp.coder.VarCoder;
-import bma.common.esp.framer.vo.DataBody;
 
 /**
  * 

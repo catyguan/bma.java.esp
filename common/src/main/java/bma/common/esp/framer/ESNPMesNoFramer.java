@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import bma.common.esp.coder.FixUint64Coder;
-import bma.common.esp.coder.Uint32Coder;
 import bma.common.esp.common.FramerCommon;
 
 /**

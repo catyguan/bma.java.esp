@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import bma.common.esp.utils.BaseTypeDncoderTool;
-import bma.common.esp.utils.BaseTypeEncoderTool;
-
 public class LenStringCoder implements BaseCoder{
 	
 	/**
@@ -38,7 +35,7 @@ public class LenStringCoder implements BaseCoder{
 	* @throws
 	 */
 	public static String lenStringDncoder(InputStream buf) throws IOException{
-		int l = BaseTypeDncoderTool.int32Dncoder(buf);
+		int l = Int32Coder.int32Dncoder(buf);
 		byte[] b = new byte[l];
 		buf.read(b, 0, l);		
 		return new String(b);

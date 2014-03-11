@@ -3,7 +3,6 @@ package bma.common.esp.transport;
 import java.util.ArrayList;
 import java.util.List;
 
-import bma.common.esp.framer.ESNPAddressFramer;
 import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.framer.ESNPMesNoFramer;
 import bma.common.esp.framer.ESNPMesSnoFramer;

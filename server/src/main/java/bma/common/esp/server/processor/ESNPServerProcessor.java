@@ -21,8 +21,6 @@ public class ESNPServerProcessor implements EProcessor{
 	public void processor(ESNPServerTransport eTransport,
 			ERequest eRequest, EResponse eResponse) throws IOException {
 		
-		List<ESNPAddressFramer> adList = eRequest.getAddressList();
-		
 		Map<Integer,String> adMap = getAddressService(eRequest);
 		
 		//获取handle

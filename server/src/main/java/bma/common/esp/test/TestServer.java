@@ -3,8 +3,6 @@ package bma.common.esp.test;
 import java.io.IOException;
 import java.util.Map;
 
-import org.hamcrest.core.IsInstanceOf;
-
 import bma.common.esp.common.FramerCommon;
 import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.server.core.ESNPServerTransport;
