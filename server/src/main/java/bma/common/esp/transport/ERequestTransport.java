@@ -1,7 +1,9 @@
 package bma.common.esp.transport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import bma.common.esp.framer.ESNPAddressFramer;
 import bma.common.esp.framer.ESNPDataFramer;
@@ -49,6 +51,14 @@ public class ERequestTransport {
 	
 	public void addDataFramer(ESNPDataFramer df){
 		this.dataList.add(df);
+	}
+	
+	public Map<String, Object> getData(){
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		for(ESNPDataFramer df : dataList){
+			dataMap.put(df.getDataName(), df.getData());
+		}
+		return dataMap;
 	}
 
 	public ESNPMesNoFramer getMesNo() {

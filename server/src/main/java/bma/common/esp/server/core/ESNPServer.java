@@ -7,12 +7,13 @@ import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
-import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
 
 import bma.common.esp.common.FramerCommon;
 import bma.common.esp.framer.ESNPMesNoFramer;
+import bma.common.esp.framer.ESNPMesTypeFramer;
 import bma.common.esp.server.frame.ESNPFrameReader;
+import bma.common.esp.server.processor.ESNPServerProcessor;
 import bma.common.esp.transport.ERequestTransport;
 import bma.common.esp.transport.EResponseTransport;
 import bma.common.esp.utils.BaseTypeTool;
@@ -22,6 +23,16 @@ public class ESNPServer extends NettyServer{
 	
 	final org.slf4j.Logger log = org.slf4j.LoggerFactory
 	.getLogger(ESNPServer.class);
+	
+	protected ESNPServerProcessor processor;
+	
+	public ESNPServerProcessor getProcessor() {
+		return processor;
+	}
+
+	public void setProcessor(ESNPServerProcessor processor) {
+		this.processor = processor;
+	}
 
 	@Override
 	protected void beforeBuildPipeline(ChannelPipeline pipeline) {
@@ -66,8 +77,16 @@ public class ESNPServer extends NettyServer{
 			mnf.setFramerType(FramerCommon.FRAMER_TYPE_ID);
 			mnf.setMesNo(BaseTypeTool.getRandomID());
 			
+			ESNPMesTypeFramer mtf = new ESNPMesTypeFramer();
+			mtf.setFramerType(FramerCommon.FRAMER_TYPE_TYPE);
+			mtf.setMesType(2);
+			
 			eResponse.setMesNo(mnf);
-			eResponse.setMesSno(eRequest.getMesNo().tranToMesSnoFramer());		
+			eResponse.setMesSno(eRequest.getMesNo().tranToMesSnoFramer());	
+			eResponse.setMesType(mtf);
+			
+			//服务器分发请求
+			processor.processor(t, eRequest, eResponse);
 			
 			System.out.println("SUCCESS!");
 

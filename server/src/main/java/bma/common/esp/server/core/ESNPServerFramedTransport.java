@@ -1,12 +1,15 @@
 package bma.common.esp.server.core;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 
+import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.server.frame.ESNPFrameReader;
 import bma.common.esp.transport.ERequestTransport;
 import bma.common.esp.transport.EResponseTransport;
@@ -92,6 +95,7 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 	}
 	
 	/**
+	 * @throws IOException 
 	 * 
 	* @Title: write 
 	* @Description: 将响应对象写入流
@@ -99,16 +103,31 @@ public class ESNPServerFramedTransport implements SupportedNettyChannel{
 	* @return void    
 	* @throws
 	 */
-	public void write(EResponseTransport eResponse){
+	public void write(EResponseTransport eResponse) throws IOException{
+		ByteArrayOutputStream tmpBAOut = new ByteArrayOutputStream();
+		eResponse.getMesNo().mesNoFramerToOutputStream(tmpBAOut);
+		eResponse.getMesSno().mesSnoFramerToOutputStream(tmpBAOut);
+		eResponse.getMesType().mesTypeFramerToOutputStream(tmpBAOut);
+		List<ESNPDataFramer> dList = eResponse.getDataList();
+		if(!dList.isEmpty()){
+			for(ESNPDataFramer df : dList){
+				df.dataFramerToOutputStream(tmpBAOut);
+			}
+		}
 		
+		if(writeBuffer.writableBytes() > tmpBAOut.size()){
+			writeBuffer.writeBytes(tmpBAOut.toByteArray());
+		}
 	}
 
 	public void flush(){
 		byte[] i32buf = new byte[4];
+		i32buf[0] = 0;
 		ESNPFrameReader.encodeFrameSize(0, i32buf);
 		if (channel.isOpen()) {
 			channel.write(writeBuffer);
 			channel.write(ChannelBuffers.copiedBuffer(i32buf));
+			
 		}
 	}
 	
