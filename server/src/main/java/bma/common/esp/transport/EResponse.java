@@ -3,6 +3,7 @@ package bma.common.esp.transport;
 import java.util.ArrayList;
 import java.util.List;
 
+import bma.common.esp.common.FramerCommon;
 import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.framer.ESNPMesNoFramer;
 import bma.common.esp.framer.ESNPMesSnoFramer;
@@ -44,6 +45,24 @@ public class EResponse {
 	
 	public void addDataFramer(ESNPDataFramer df){
 		this.dataList.add(df);
+	}
+	
+	/**
+	 * 
+	* @Title: setData 
+	* @Description: 设置业务数据
+	* @param @param dataName
+	* @param @param obj    
+	* @return void    
+	* @throws
+	 */
+	public void setData(String dataName,Object obj){
+		ESNPDataFramer dataF = new ESNPDataFramer();
+		dataF.setFramerType(FramerCommon.FRAMER_TYPE_DATA);
+		dataF.setDataName(dataName);
+		dataF.setDataType(5);
+		dataF.setData(obj);	
+		this.dataList.add(dataF);
 	}
 
 	public ESNPMesNoFramer getMesNo() {

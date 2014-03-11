@@ -53,6 +53,14 @@ public class ERequest {
 		this.dataList.add(df);
 	}
 	
+	/**
+	 * 
+	* @Title: getData 
+	* @Description: 获取请求参数集
+	* @param @return    
+	* @return Map<String,Object>    
+	* @throws
+	 */
 	public Map<String, Object> getData(){
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		for(ESNPDataFramer df : dataList){

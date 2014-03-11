@@ -3,8 +3,6 @@ package bma.common.esp.test;
 import java.io.IOException;
 import java.util.Map;
 
-import bma.common.esp.common.FramerCommon;
-import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.server.core.ESNPServerTransport;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
@@ -22,13 +20,8 @@ public class TestServer implements Test.Iface {
 		int b = (Integer)dataMap.get("b");
 		c =  a + b;
 		
-		//组装数据
-		ESNPDataFramer dataF = new ESNPDataFramer();
-		dataF.setFramerType(FramerCommon.FRAMER_TYPE_DATA);
-		dataF.setDataName("c");
-		dataF.setDataType(5);
-		dataF.setData(c);	
-		eResponse.addDataFramer(dataF);	
+		//设置响应数据结果
+		eResponse.setData("c",c);	
 		
 		//发送
 		eTransport.write(eResponse);

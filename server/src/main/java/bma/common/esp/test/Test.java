@@ -33,7 +33,7 @@ public class Test extends EHandler{
 
 	public Iface getIface() {
 		return iface;
-	}
+	} 
 
 	public void setIface(Iface iface) {
 		this.iface = iface;
