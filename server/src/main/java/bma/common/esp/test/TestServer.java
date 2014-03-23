@@ -3,6 +3,7 @@ package bma.common.esp.test;
 import java.io.IOException;
 import java.util.Map;
 
+import bma.common.esp.exception.EspExecption;
 import bma.common.esp.server.core.ESNPServerTransport;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
@@ -31,6 +32,12 @@ public class TestServer implements Test.Iface {
 		eTransport.flush();
 		
 		log.info("AAAAAAA");
+	}
+
+	@Override
+	public int add(int a, int b) throws EspExecption {
+		int c;
+		return a + b;
 	}
 
 }

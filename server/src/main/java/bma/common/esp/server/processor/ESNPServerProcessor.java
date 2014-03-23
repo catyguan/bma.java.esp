@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bma.common.esp.exception.EspExecption;
 import bma.common.esp.framer.ESNPAddressFramer;
 import bma.common.esp.server.core.ESNPServerTransport;
 import bma.common.esp.transport.ERequest;
@@ -23,11 +24,19 @@ public class ESNPServerProcessor implements EProcessor{
 		
 		Map<Integer,String> adMap = getAddressService(eRequest);
 		
+		if(!adMap.containsKey(ESNPAddressFramer.ADDRESS_SERVICE)){
+			throw new EspExecption("do not find service address!");
+		}
+		
+		if(!adMap.containsKey(ESNPAddressFramer.ADDRESS_OP)){
+			throw new EspExecption("do not find op address!");
+		}	
+		
 		//获取handle
-		EHandler handle = handleMap.get(adMap.get(30));
+		EHandler handle = handleMap.get(adMap.get(ESNPAddressFramer.ADDRESS_SERVICE));
 
 		//获取操作
-		EFunction function = handle.getFunctionMap().get(adMap.get(20));
+		EFunction function = handle.getFunctionMap().get(adMap.get(ESNPAddressFramer.ADDRESS_OP));
 		
 		//执行
 		function.execute(eTransport, eRequest, eResponse);	

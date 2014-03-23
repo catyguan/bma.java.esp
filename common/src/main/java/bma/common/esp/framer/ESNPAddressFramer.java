@@ -18,6 +18,16 @@ import bma.common.esp.coder.LenStringCoder;
 *
  */
 public class ESNPAddressFramer extends ESNPBaseFramer {
+	//服务组
+	public static int ADDRESS_GROUP = 50;
+	//主机(节点)
+	public static int ADDRESS_HOST = 40; 
+	//服务
+	public static int ADDRESS_SERVICE = 30;
+	//操作
+	public static int ADDRESS_OP = 20;
+	//操作关联对象
+	public static int ADDRESS_OBJECT = 10;
 	
 	/**
 	 * 地址类型
