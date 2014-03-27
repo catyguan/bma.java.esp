@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bma.common.esp.common.FramerCommon;
+import bma.common.esp.exception.EspExecption;
 import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.framer.ESNPMesNoFramer;
 import bma.common.esp.framer.ESNPMesSnoFramer;
 import bma.common.esp.framer.ESNPMesTypeFramer;
+import bma.common.esp.utils.BaseTypeTool;
 
 /**
  * 
@@ -48,6 +50,7 @@ public class EResponse {
 	}
 	
 	/**
+	 * @throws EspExecption 
 	 * 
 	* @Title: setData 
 	* @Description: 设置业务数据
@@ -56,11 +59,23 @@ public class EResponse {
 	* @return void    
 	* @throws
 	 */
-	public void setData(String dataName,Object obj){
+	public void setData(String dataName,Object obj) throws EspExecption{
+		if(obj == null){
+			return ;
+		}
+		
+		Class<?> classType = obj.getClass(); 
+		int type = BaseTypeTool.getVarTypeByClass(classType.getSimpleName());
+		
+		if(type == 0){
+			throw new EspExecption("obj not match type!");
+		}
+		
 		ESNPDataFramer dataF = new ESNPDataFramer();
 		dataF.setFramerType(FramerCommon.FRAMER_TYPE_DATA);
 		dataF.setDataName(dataName);
-		dataF.setDataType(5);
+		
+		dataF.setDataType(type);
 		dataF.setData(obj);	
 		this.dataList.add(dataF);
 	}
