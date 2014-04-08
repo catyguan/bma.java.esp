@@ -33,7 +33,7 @@ public class FixInt32Coder implements BaseCoder{
 	* @return int    
 	* @throws
 	 */
-	public static int fixInt32Dncoder(InputStream buf) throws IOException{
+	public static int fixInt32Decoder(InputStream buf) throws IOException{
 		int s = 0;
 		s += (buf.read() & 0xff) << 24;
 		s += (buf.read() & 0xff) << 16;
@@ -44,7 +44,7 @@ public class FixInt32Coder implements BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return fixInt32Dncoder(buf);
+		return fixInt32Decoder(buf);
 	}
 
 	@Override

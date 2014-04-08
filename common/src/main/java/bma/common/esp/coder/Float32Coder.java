@@ -31,14 +31,14 @@ public class Float32Coder implements BaseCoder{
 	* @return float    
 	* @throws
 	 */
-	public static float float32Dncoder(InputStream buf) throws IOException{
-		int i = FixUint32Coder.fixUint32Dncoder(buf);
+	public static float float32Decoder(InputStream buf) throws IOException{
+		int i = FixUint32Coder.fixUint32Decoder(buf);
 		return Float.intBitsToFloat(i);
 	}
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return float32Dncoder(buf);
+		return float32Decoder(buf);
 	}
 
 	@Override

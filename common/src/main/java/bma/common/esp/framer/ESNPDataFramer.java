@@ -94,10 +94,10 @@ public class ESNPDataFramer extends ESNPBaseFramer {
 		InputStream dataIn = new ByteArrayInputStream(dataByte);
 		
 		int t;
-		this.setDataName(LenStringCoder.lenStringDncoder(dataIn));
+		this.setDataName(LenStringCoder.lenStringDecoder(dataIn));
 		t = dataIn.read();
 		this.setDataType(t);
-		this.setData(VarCoder.varDncoder(dataIn, t, false));
+		this.setData(VarCoder.varDecoder(dataIn, t, false));
 		dataIn.close();
 	}
 	

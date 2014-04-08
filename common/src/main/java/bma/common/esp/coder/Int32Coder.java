@@ -33,8 +33,8 @@ public class Int32Coder implements BaseCoder{
 	* @return int    
 	* @throws
 	 */
-	public static int int32Dncoder(InputStream buf) throws IOException{
-		long l = Uint64Coder.uint64Dncoder(buf);
+	public static int int32Decoder(InputStream buf) throws IOException{
+		long l = Uint64Coder.uint64Decoder(buf);
 		long l2 = (long) (l >> 1);
 		if((l & 1) != 0){
 			l2 = ~l2;
@@ -44,7 +44,7 @@ public class Int32Coder implements BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return int32Dncoder(buf);
+		return int32Decoder(buf);
 	}
 
 	@Override

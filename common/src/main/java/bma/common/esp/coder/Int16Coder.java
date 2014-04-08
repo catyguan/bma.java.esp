@@ -34,8 +34,8 @@ public class Int16Coder implements BaseCoder{
 	* @return short    
 	* @throws
 	 */
-	public static short int16Dncoder(InputStream buf) throws IOException{
-		long l = Uint64Coder.uint64Dncoder(buf);
+	public static short int16Decoder(InputStream buf) throws IOException{
+		long l = Uint64Coder.uint64Decoder(buf);
 		long l2 = (long) (l >> 1);
 		if((l & 1) != 0){
 			l2 = ~l2;
@@ -45,7 +45,7 @@ public class Int16Coder implements BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return int16Dncoder(buf);
+		return int16Decoder(buf);
 	}
 
 	@Override

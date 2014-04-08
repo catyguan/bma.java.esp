@@ -32,7 +32,7 @@ public class FixInt16Coder implements BaseCoder {
 	* @return short    
 	* @throws
 	 */
-	public static short fixInt16Dncoder(InputStream buf) throws IOException{
+	public static short fixInt16Decoder(InputStream buf) throws IOException{
 		int s = 0;
 	    s += (buf.read() & 0xff) << 8;
 	    s += (buf.read() & 0xff);
@@ -42,7 +42,7 @@ public class FixInt16Coder implements BaseCoder {
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException{
-		return fixInt16Dncoder(buf);
+		return fixInt16Decoder(buf);
 	}
 
 

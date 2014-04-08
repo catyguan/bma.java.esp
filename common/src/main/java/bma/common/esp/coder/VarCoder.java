@@ -66,27 +66,27 @@ public class VarCoder implements BaseCoder {
 		}
 	}
 	
-	public static Object varDncoder(InputStream buf) throws IOException{
+	public static Object varDecoder(InputStream buf) throws IOException{
 		int type = 0;
-		return varDncoder(buf,type,true);
+		return varDecoder(buf,type,true);
 	}
 	
 
-	public static Object varDncoder(InputStream buf,int type,boolean readType) throws IOException{
+	public static Object varDecoder(InputStream buf,int type,boolean readType) throws IOException{
 		if(readType){
 			type = buf.read();
 		}
 		switch (type) {
 		case VarTypeCommon.TYPE_INT32://int32
-			return Int32Coder.int32Dncoder(buf);
+			return Int32Coder.int32Decoder(buf);
 		case VarTypeCommon.TYPE_INT64://int64
-			return Int64Coder.int64Dncoder(buf);
+			return Int64Coder.int64Decoder(buf);
 		case VarTypeCommon.TYPE_FLOAT32://float32
-			return Float32Coder.float32Dncoder(buf);
+			return Float32Coder.float32Decoder(buf);
 		case VarTypeCommon.TYPE_FLOAT64://float64
-			return Float64Coder.float64Dncoder(buf);
+			return Float64Coder.float64Decoder(buf);
 		case VarTypeCommon.TYPE_LEN_STRING://lenString
-			return LenStringCoder.lenStringDncoder(buf);
+			return LenStringCoder.lenStringDecoder(buf);
 		default:
 			break;
 		}
@@ -96,7 +96,7 @@ public class VarCoder implements BaseCoder {
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return varDncoder(buf);
+		return varDecoder(buf);
 	}
 
 

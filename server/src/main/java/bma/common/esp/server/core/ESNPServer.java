@@ -36,7 +36,6 @@ public class ESNPServer extends NettyServer{
 
 	@Override
 	protected void beforeBuildPipeline(ChannelPipeline pipeline) {
-		System.out.println("beforeBuildPipeline");
 		super.beforeBuildPipeline(pipeline);
 		pipeline.addLast("framed", new ESNPFrameReader());
 		pipeline.addLast("transport", new OneToOneDecoder() {
@@ -52,9 +51,7 @@ public class ESNPServer extends NettyServer{
 				return msg;
 			}
 		});
-		pipeline.addLast("processer", new Handler());
-		
-		
+		pipeline.addLast("processer", new Handler());	
 	}
 	
 	public class Handler extends SimpleChannelUpstreamHandler {

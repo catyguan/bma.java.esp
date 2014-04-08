@@ -18,7 +18,7 @@ public class BaseTypeTest {
 		BooleanCoder.booleanEncoder(bosB,b);
 		System.out.println(b);
 		ByteArrayInputStream bisB = new ByteArrayInputStream(bosB.toByteArray());
-		System.out.println(BooleanCoder.booleanDncoder(bisB));
+		System.out.println(BooleanCoder.booleanDecoder(bisB));
 	}
 	
 	@Test
@@ -28,7 +28,7 @@ public class BaseTypeTest {
 		FixInt16Coder.fixInt16Encoder(bos16, s);
 		System.out.println(s);
 		ByteArrayInputStream bis16 = new ByteArrayInputStream(bos16.toByteArray());
-		System.out.println(FixInt16Coder.fixInt16Dncoder(bis16));
+		System.out.println(FixInt16Coder.fixInt16Decoder(bis16));
 	}
 	
 	@Test
@@ -38,7 +38,7 @@ public class BaseTypeTest {
 		FixInt32Coder.fixInt32Encoder(bos32,i);
 		System.out.println(i);
 		ByteArrayInputStream bis32 = new ByteArrayInputStream(bos32.toByteArray());
-		System.out.println(FixInt32Coder.fixInt32Dncoder(bis32));
+		System.out.println(FixInt32Coder.fixInt32Decoder(bis32));
 	}
 	
 	@Test
@@ -48,7 +48,7 @@ public class BaseTypeTest {
 		FixInt64Coder.fixInt64Encoder(bos64,l);
 		System.out.println(l);
 		ByteArrayInputStream bis64 = new ByteArrayInputStream(bos64.toByteArray());
-		System.out.println(FixInt64Coder.fixInt64Dncoder(bis64));
+		System.out.println(FixInt64Coder.fixInt64Decoder(bis64));
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ public class BaseTypeTest {
 		FixUint64Coder.fixUint64Encoder(bos64,l);
 		System.out.println(l);
 		ByteArrayInputStream bis64 = new ByteArrayInputStream(bos64.toByteArray());
-		System.out.println(FixUint64Coder.fixUint64Dncoder(bis64));
+		System.out.println(FixUint64Coder.fixUint64Decoder(bis64));
 	}
 	
 	@Test
@@ -68,7 +68,7 @@ public class BaseTypeTest {
 		Int16Coder.int16Encoder(bos16, s);
 		System.out.println(s);
 		ByteArrayInputStream bis16 = new ByteArrayInputStream(bos16.toByteArray());
-		System.out.println(Int16Coder.int16Dncoder(bis16));
+		System.out.println(Int16Coder.int16Decoder(bis16));
 	}
 	
 	@Test
@@ -79,7 +79,7 @@ public class BaseTypeTest {
 		System.out.println(i);
 		System.out.println(StringUtil.byte2Hex(bos32.toByteArray()));
 		ByteArrayInputStream bis32 = new ByteArrayInputStream(bos32.toByteArray());		
-		System.out.println(Int32Coder.int32Dncoder(bis32));
+		System.out.println(Int32Coder.int32Decoder(bis32));
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class BaseTypeTest {
 		Uint32Coder.uint32Encoder(bos32,i);
 		System.out.println(i);
 		ByteArrayInputStream bis32 = new ByteArrayInputStream(bos32.toByteArray());
-		System.out.println(Uint32Coder.uint32Dncoder(bis32));
+		System.out.println(Uint32Coder.uint32Decoder(bis32));
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ public class BaseTypeTest {
 		System.out.println(l);
 		System.out.println(StringUtil.byte2Hex(bos64.toByteArray()));
 		ByteArrayInputStream bis64 = new ByteArrayInputStream(bos64.toByteArray());
-		System.out.println(Int64Coder.int64Dncoder(bis64));
+		System.out.println(Int64Coder.int64Decoder(bis64));
 	}
 	
 	@Test
@@ -110,7 +110,7 @@ public class BaseTypeTest {
 		Float32Coder.float32Encoder(bos32,i);
 		System.out.println(i);
 		ByteArrayInputStream bis32 = new ByteArrayInputStream(bos32.toByteArray());
-		System.out.println(Float32Coder.float32Dncoder(bis32));
+		System.out.println(Float32Coder.float32Decoder(bis32));
 	}
 	
 	@Test
@@ -120,7 +120,7 @@ public class BaseTypeTest {
 		Float64Coder.float64Encoder(bos64,l);
 		System.out.println(l);
 		ByteArrayInputStream bis64 = new ByteArrayInputStream(bos64.toByteArray());
-		System.out.println(Float64Coder.float64Dncoder(bis64));
+		System.out.println(Float64Coder.float64Decoder(bis64));
 	}
 	
 	@Test
@@ -130,7 +130,7 @@ public class BaseTypeTest {
 		StringCoder.stringEncoder(bosS,s);
 		System.out.println(s);
 		ByteArrayInputStream bisS = new ByteArrayInputStream(bosS.toByteArray());
-		System.out.println(StringCoder.stringDncoder(bisS));
+		System.out.println(StringCoder.stringDecoder(bisS));
 	}
 	
 	@Test
@@ -141,7 +141,7 @@ public class BaseTypeTest {
 		System.out.println(s1);
 		System.out.println(StringUtil.byte2Hex(bosLS.toByteArray()));
 		ByteArrayInputStream bisLS = new ByteArrayInputStream(bosLS.toByteArray());
-		System.out.println(LenStringCoder.lenStringDncoder(bisLS));
+		System.out.println(LenStringCoder.lenStringDecoder(bisLS));
 	}
 	
 	@Test
@@ -152,7 +152,7 @@ public class BaseTypeTest {
 		System.out.println(a);
 		System.out.println(StringUtil.byte2Hex(bosVar.toByteArray()));
 		ByteArrayInputStream bisLS = new ByteArrayInputStream(bosVar.toByteArray());
-		System.out.println(VarCoder.varDncoder(bisLS, VarTypeCommon.TYPE_INT32, true));
+		System.out.println(VarCoder.varDecoder(bisLS, VarTypeCommon.TYPE_INT32, true));
 	}
 	
 

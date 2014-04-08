@@ -36,13 +36,13 @@ public class BooleanCoder implements BaseCoder{
 	* @return boolean    
 	* @throws
 	 */
-	public static boolean booleanDncoder(InputStream buf) throws IOException{
+	public static boolean booleanDecoder(InputStream buf) throws IOException{
 		return buf.read() == 0 ? false : true;
 	}
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return booleanDncoder(buf);
+		return booleanDecoder(buf);
 	}
 
 	@Override

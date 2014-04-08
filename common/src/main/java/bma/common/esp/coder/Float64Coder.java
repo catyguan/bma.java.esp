@@ -33,8 +33,8 @@ public class Float64Coder implements BaseCoder{
 	* @return double    
 	* @throws
 	 */
-	public static double float64Dncoder(InputStream buf) throws IOException{
-		long l = FixInt64Coder.fixInt64Dncoder(buf);
+	public static double float64Decoder(InputStream buf) throws IOException{
+		long l = FixInt64Coder.fixInt64Decoder(buf);
 		return Double.longBitsToDouble(l);
 	}
 
@@ -42,7 +42,7 @@ public class Float64Coder implements BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return float64Dncoder(buf);
+		return float64Decoder(buf);
 	}
 
 

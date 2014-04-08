@@ -88,8 +88,8 @@ public class ESNPAddressFramer extends ESNPBaseFramer {
 		in.read(addressByte, 0, length);
 		InputStream addressIn = new ByteArrayInputStream(addressByte);
 		
-		this.setAddressType(Int32Coder.int32Dncoder(addressIn));
-		this.setAddress(LenStringCoder.lenStringDncoder(addressIn));
+		this.setAddressType(Int32Coder.int32Decoder(addressIn));
+		this.setAddress(LenStringCoder.lenStringDecoder(addressIn));
 
 		addressIn.close();
 	}

@@ -34,8 +34,8 @@ public class LenStringCoder implements BaseCoder{
 	* @return String    
 	* @throws
 	 */
-	public static String lenStringDncoder(InputStream buf) throws IOException{
-		int l = Int32Coder.int32Dncoder(buf);
+	public static String lenStringDecoder(InputStream buf) throws IOException{
+		int l = Int32Coder.int32Decoder(buf);
 		byte[] b = new byte[l];
 		buf.read(b, 0, l);		
 		return new String(b);
@@ -43,7 +43,7 @@ public class LenStringCoder implements BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return lenStringDncoder(buf);
+		return lenStringDecoder(buf);
 	}
 
 	@Override

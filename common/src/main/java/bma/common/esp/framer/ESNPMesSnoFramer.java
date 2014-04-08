@@ -61,7 +61,7 @@ public class ESNPMesSnoFramer extends ESNPBaseFramer {
 		if(super.getFramerType() == 0 || super.getFramerBodyLength() == 0){
 			return ;
 		}
-		this.mesSno = FixUint64Coder.fixUint64Dncoder(in);
+		this.mesSno = FixUint64Coder.fixUint64Decoder(in);
 	}
 	
 	/**

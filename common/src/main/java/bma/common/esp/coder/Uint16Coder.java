@@ -37,7 +37,7 @@ public class Uint16Coder implements BaseCoder{
 	* @return short    
 	* @throws
 	 */
-	public static short uint16Dncoder(InputStream buf) throws IOException{
+	public static short uint16Decoder(InputStream buf) throws IOException{
 		int s = 0;
 		int b;
 		int w = 0;
@@ -61,7 +61,7 @@ public class Uint16Coder implements BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return uint16Dncoder(buf);
+		return uint16Decoder(buf);
 	}
 
 	@Override

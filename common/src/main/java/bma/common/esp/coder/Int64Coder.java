@@ -34,8 +34,8 @@ public class Int64Coder implements BaseCoder {
 	* @return long    
 	* @throws
 	 */
-	public static long int64Dncoder(InputStream buf) throws IOException{
-		long l = Uint64Coder.uint64Dncoder(buf);
+	public static long int64Decoder(InputStream buf) throws IOException{
+		long l = Uint64Coder.uint64Decoder(buf);
 		long l2 = (long) (l >> 1);
 		if((l & 1) != 0){
 			l2 = ~l2;
@@ -46,7 +46,7 @@ public class Int64Coder implements BaseCoder {
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
 		// TODO Auto-generated method stub
-		return int64Dncoder(buf);
+		return int64Decoder(buf);
 	}
 
 	@Override

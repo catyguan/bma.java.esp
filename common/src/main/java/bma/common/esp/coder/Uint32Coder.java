@@ -37,7 +37,7 @@ public class Uint32Coder implements BaseCoder {
 	* @return int    
 	* @throws
 	 */
-	public static int uint32Dncoder(InputStream buf) throws IOException{
+	public static int uint32Decoder(InputStream buf) throws IOException{
 		int s = 0;
 		int b;
 		int w = 0;
@@ -61,7 +61,7 @@ public class Uint32Coder implements BaseCoder {
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return uint32Dncoder(buf);
+		return uint32Decoder(buf);
 	}
 
 	@Override

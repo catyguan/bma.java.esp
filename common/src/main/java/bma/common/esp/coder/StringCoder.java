@@ -32,7 +32,7 @@ public class StringCoder implements BaseCoder{
 	* @return String    
 	* @throws
 	 */
-	public static String stringDncoder(InputStream buf) throws IOException{
+	public static String stringDecoder(InputStream buf) throws IOException{
 		byte[] b = new byte[buf.available()];
 		buf.read(b, 0, buf.available());		
 		return new String(b);
@@ -40,7 +40,7 @@ public class StringCoder implements BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return stringDncoder(buf);
+		return stringDecoder(buf);
 	}
 
 	@Override

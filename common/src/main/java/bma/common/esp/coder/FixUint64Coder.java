@@ -37,7 +37,7 @@ public class FixUint64Coder implements BaseCoder{
 	* @return long    
 	* @throws
 	 */
-	public static long fixUint64Dncoder(InputStream buf) throws IOException{
+	public static long fixUint64Decoder(InputStream buf) throws IOException{
 		long s = 0;
 		s += (long)(buf.read() & 0xff) << 56;
 		s += (long)(buf.read() & 0xff) << 48;
@@ -52,7 +52,7 @@ public class FixUint64Coder implements BaseCoder{
 
 	@Override
 	public Object decoder(InputStream buf) throws IOException {
-		return fixUint64Dncoder(buf);
+		return fixUint64Decoder(buf);
 	}
 
 	@Override
