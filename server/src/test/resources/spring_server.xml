@@ -20,7 +20,16 @@
 				<ref bean="secureFilter" />
 			</list>
 		</property>
+		<!-- 
 		<property name="processor" ref="processor"></property>
+		 -->
+		 <property name="processorList" >
+		 	<list>
+		 		<ref bean="loginProcessor"/>
+		 		<ref bean="ipProcessor"/>
+		 		<ref bean="serverProcessor"/>
+		 	</list>
+		 </property>
 	</bean>
 	
 	<!-- ip limit -->

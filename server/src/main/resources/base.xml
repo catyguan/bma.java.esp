@@ -9,10 +9,24 @@
                      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	
 	<!-- 基础配置 -->
-	<bean id="processor" class="bma.common.esp.server.processor.ESNPServerProcessor" >
+	<bean id="serverProcessor" class="bma.common.esp.server.processor.ESNPServerProcessor" >
 		<property name="handleMap" >
 			<map>
 				<entry key="test" value-ref="test_handler"/>
+			</map>
+		</property>
+	</bean>	
+	
+	<!-- 登录 -->
+	<bean id="loginProcessor" class="bma.common.esp.server.processor.ESNPLoginProcessor" >
+
+	</bean>	
+	
+	<!-- 服务ip限制 -->
+	<bean id="ipProcessor" class="bma.common.esp.server.processor.ESNPIpFilterProcesser" >
+		<property name="serverIpMap" >
+			<map>
+				<entry key="test" value="127.0.0.1"/>
 			</map>
 		</property>
 	</bean>	

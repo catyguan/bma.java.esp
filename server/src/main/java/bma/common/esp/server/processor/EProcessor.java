@@ -6,8 +6,10 @@ import bma.common.esp.server.core.ESNPServerTransport;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
 
-public interface EProcessor {
+public abstract class EProcessor {
 	
-	public void processor(ESNPServerTransport eTransport,ERequest eRequest,EResponse eResponse) throws IOException;
+	
+	
+	public abstract void processor(ESNPServerTransport eTransport,ERequest eRequest,EResponse eResponse) throws IOException;
 
 }

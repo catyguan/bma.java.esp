@@ -1,5 +1,7 @@
 package bma.common.esp.server.core;
 
+import java.util.List;
+
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -13,6 +15,7 @@ import bma.common.esp.common.FramerCommon;
 import bma.common.esp.framer.ESNPMesNoFramer;
 import bma.common.esp.framer.ESNPMesTypeFramer;
 import bma.common.esp.server.frame.ESNPFrameReader;
+import bma.common.esp.server.processor.EProcessor;
 import bma.common.esp.server.processor.ESNPServerProcessor;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
@@ -24,14 +27,24 @@ public class ESNPServer extends NettyServer{
 	final org.slf4j.Logger log = org.slf4j.LoggerFactory
 	.getLogger(ESNPServer.class);
 	
-	protected ESNPServerProcessor processor;
+//	protected ESNPServerProcessor processor;
 	
-	public ESNPServerProcessor getProcessor() {
-		return processor;
+	protected List<EProcessor> processorList;
+	
+//	public ESNPServerProcessor getProcessor() {
+//		return processor;
+//	}
+//
+//	public void setProcessor(ESNPServerProcessor processor) {
+//		this.processor = processor;
+//	}
+	
+	public List<EProcessor> getProcessorList() {
+		return processorList;
 	}
 
-	public void setProcessor(ESNPServerProcessor processor) {
-		this.processor = processor;
+	public void setProcessorList(List<EProcessor> processorList) {
+		this.processorList = processorList;
 	}
 
 	@Override
@@ -83,7 +96,13 @@ public class ESNPServer extends NettyServer{
 			eResponse.setMesType(mtf);
 			
 			//服务器分发请求
-			processor.processor(t, eRequest, eResponse);
+//			processor.processor(t, eRequest, eResponse);
+			
+			if(processorList != null){
+				for(EProcessor processor: processorList){
+					processor.processor(t, eRequest, eResponse);
+				}
+			}	
 			
 			log.info("SUCCESS");
 

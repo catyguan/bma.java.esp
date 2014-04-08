@@ -11,7 +11,7 @@ import bma.common.esp.server.core.ESNPServerTransport;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
 
-public class ESNPServerProcessor implements EProcessor{
+public class ESNPServerProcessor extends EProcessor{
 	
 	/**
 	 * 服务器业务处理Map
