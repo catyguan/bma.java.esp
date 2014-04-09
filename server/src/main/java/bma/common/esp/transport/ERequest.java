@@ -68,6 +68,14 @@ public class ERequest {
 		}
 		return dataMap;
 	}
+	
+	public Map<Integer,String> getAddressService(){
+		Map<Integer,String> adMap = new HashMap<Integer, String>();
+		for(ESNPAddressFramer af : addressList){
+			adMap.put(af.getAddressType(), af.getAddress());
+		}
+		return adMap;
+	}
 
 	public ESNPMesNoFramer getMesNo() {
 		return mesNo;

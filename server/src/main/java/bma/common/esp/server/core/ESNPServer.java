@@ -57,7 +57,7 @@ public class ESNPServer extends NettyServer{
 					Object msg) throws Exception {
 				if (msg instanceof ChannelBuffer) {
 					ChannelBuffer cb = (ChannelBuffer) msg;
-					ESNPServerTransport t = new ESNPServerTransport(
+					ESNPServerScoket t = new ESNPServerScoket(
 							ctx.getChannel(), cb);
 					return t;
 				}
@@ -73,10 +73,10 @@ public class ESNPServer extends NettyServer{
 		public void messageReceived(final ChannelHandlerContext nctx,
 				MessageEvent e) throws Exception {
 			Object obj = e.getMessage();
-			if( ! (obj instanceof ESNPServerTransport)){
+			if( ! (obj instanceof ESNPServerScoket)){
 				return;
 			}
-			ESNPServerTransport t = (ESNPServerTransport) obj;
+			ESNPServerScoket t = (ESNPServerScoket) obj;
 			
 			ERequest eRequest = new ERequest();
 			t.read(eRequest);

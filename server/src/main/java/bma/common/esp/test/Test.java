@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import bma.common.esp.exception.EspExecption;
-import bma.common.esp.server.core.ESNPServerTransport;
+import bma.common.esp.server.core.ESNPServerScoket;
 import bma.common.esp.server.processor.EFunction;
 import bma.common.esp.server.processor.EHandler;
 import bma.common.esp.transport.ERequest;
@@ -41,13 +41,13 @@ public class Test extends EHandler{
 		}
 		
 		//发送结果
-		public void send_add_result(ESNPServerTransport eTransport,EResponse eResponse,add_result result) throws IOException{
+		public void send_add_result(ESNPServerScoket eTransport,EResponse eResponse,add_result result) throws IOException{
 			result.writeData(eResponse);
 			result.flush(eTransport,eResponse);
 		}
 
 		@Override
-		public void execute(ESNPServerTransport eTransport,
+		public void execute(ESNPServerScoket eTransport,
 				ERequest eRequest, EResponse eResponse) throws IOException {
 			
 			//获取参数
@@ -132,7 +132,7 @@ public class Test extends EHandler{
 			
 		}
 		
-		public void flush(ESNPServerTransport eTransport,EResponse eResponse) throws IOException{
+		public void flush(ESNPServerScoket eTransport,EResponse eResponse) throws IOException{
 			if(eTransport == null){
 				throw new EspExecption("scoket is error!");
 			}

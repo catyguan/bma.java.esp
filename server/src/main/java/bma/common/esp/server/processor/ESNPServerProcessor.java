@@ -7,7 +7,7 @@ import java.util.Map;
 
 import bma.common.esp.exception.EspExecption;
 import bma.common.esp.framer.ESNPAddressFramer;
-import bma.common.esp.server.core.ESNPServerTransport;
+import bma.common.esp.server.core.ESNPServerScoket;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
 
@@ -19,10 +19,10 @@ public class ESNPServerProcessor extends EProcessor{
 	private Map<String,EHandler> handleMap;
 
 	@Override
-	public void processor(ESNPServerTransport eTransport,
+	public void processor(ESNPServerScoket eTransport,
 			ERequest eRequest, EResponse eResponse) throws IOException {
 		
-		Map<Integer,String> adMap = getAddressService(eRequest);
+		Map<Integer,String> adMap = eRequest.getAddressService();
 		
 		if(!adMap.containsKey(ESNPAddressFramer.ADDRESS_SERVICE)){
 			throw new EspExecption("do not find service address!");
@@ -40,15 +40,6 @@ public class ESNPServerProcessor extends EProcessor{
 		
 		//执行
 		function.execute(eTransport, eRequest, eResponse);	
-	}
-	
-	private Map<Integer,String> getAddressService(ERequest eRequest){
-		Map<Integer,String> adMap = new HashMap<Integer, String>();
-		List<ESNPAddressFramer> afList = eRequest.getAddressList();
-		for(ESNPAddressFramer af : afList){
-			adMap.put(af.getAddressType(), af.getAddress());
-		}
-		return adMap;
 	}
 
 	public Map<String, EHandler> getHandleMap() {

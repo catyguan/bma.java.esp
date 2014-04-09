@@ -3,6 +3,8 @@ package bma.common.esp.server.core;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.util.List;
 
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -16,7 +18,7 @@ import bma.common.esp.transport.EResponse;
 import bma.common.esp.transport.FramerDncoderFactory;
 import bma.common.netty.SupportedNettyChannel;
 
-public class ESNPServerTransport implements SupportedNettyChannel{
+public class ESNPServerScoket implements SupportedNettyChannel{
 
 	protected Channel channel;
 	private ChannelBuffer readBuffer;
@@ -26,7 +28,7 @@ public class ESNPServerTransport implements SupportedNettyChannel{
 	 */
 	protected ChannelBuffer writeBuffer = ChannelBuffers.dynamicBuffer(1024);
 	
-	public ESNPServerTransport(Channel ch, ChannelBuffer rcb){
+	public ESNPServerScoket(Channel ch, ChannelBuffer rcb){
 		this.channel = ch;
 		this.readBuffer = rcb;
 	}
@@ -117,6 +119,16 @@ public class ESNPServerTransport implements SupportedNettyChannel{
 			channel.write(ChannelBuffers.copiedBuffer(i32buf));
 			
 		}
+	}
+	
+	public String getRemoteHost(){
+		InetSocketAddress s = (InetSocketAddress) channel.getRemoteAddress();
+		return s.getHostString();
+	}
+	
+	public int getRemotePort(){
+		InetSocketAddress s = (InetSocketAddress) channel.getRemoteAddress();
+		return s.getPort();
 	}
 	
 	

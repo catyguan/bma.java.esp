@@ -26,7 +26,7 @@
 	<bean id="ipProcessor" class="bma.common.esp.server.processor.ESNPIpFilterProcesser" >
 		<property name="serverIpMap" >
 			<map>
-				<entry key="test" value="127.0.0.1"/>
+				<entry key="test" value="127.0.0.2"/>
 			</map>
 		</property>
 	</bean>	

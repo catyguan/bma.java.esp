@@ -2,7 +2,7 @@ package bma.common.esp.server.processor;
 
 import java.io.IOException;
 
-import bma.common.esp.server.core.ESNPServerTransport;
+import bma.common.esp.server.core.ESNPServerScoket;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
 
@@ -26,7 +26,7 @@ public abstract class EFunction {
 	* @return void    
 	* @throws
 	 */
-	public abstract void execute(ESNPServerTransport eTransport,
+	public abstract void execute(ESNPServerScoket eTransport,
 			ERequest eRequest, EResponse eResponse) throws IOException;
 
 }
