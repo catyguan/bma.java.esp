@@ -20,4 +20,11 @@ public class ESNPLoginProcessor extends EProcessor {
 		
 	}
 
+	@Override
+	public void exceptionHandle(ESNPServerScoket eTransport,
+			EResponse eResponse, Exception e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

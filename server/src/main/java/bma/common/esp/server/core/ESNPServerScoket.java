@@ -12,6 +12,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 
 import bma.common.esp.framer.ESNPDataFramer;
+import bma.common.esp.framer.ESNPErrorFramer;
 import bma.common.esp.server.frame.ESNPFrameReader;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
@@ -95,14 +96,25 @@ public class ESNPServerScoket implements SupportedNettyChannel{
 	 */
 	public void write(EResponse eResponse) throws IOException{
 		ByteArrayOutputStream tmpBAOut = new ByteArrayOutputStream();
+		//消息编号
 		eResponse.getMesNo().mesNoFramerToOutputStream(tmpBAOut);
+		//源消息编号
 		eResponse.getMesSno().mesSnoFramerToOutputStream(tmpBAOut);
+		//消息类型
 		eResponse.getMesType().mesTypeFramerToOutputStream(tmpBAOut);
+		
+		//业务数据
 		List<ESNPDataFramer> dList = eResponse.getDataList();
 		if(!dList.isEmpty()){
 			for(ESNPDataFramer df : dList){
 				df.dataFramerToOutputStream(tmpBAOut);
 			}
+		}
+		
+		//错误信息
+		ESNPErrorFramer error = eResponse.getError();
+		if(error != null){
+			error.errorFramerToOutputStream(tmpBAOut);
 		}
 		
 		if(writeBuffer.writableBytes() > tmpBAOut.size()){

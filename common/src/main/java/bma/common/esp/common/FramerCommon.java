@@ -16,5 +16,7 @@ public interface FramerCommon {
 	
 	//数据
 	int FRAMER_TYPE_DATA = 0x15;
-
+	
+	//错误
+	int FRAMER_TYPE_ERROR = 0x1D;
 }

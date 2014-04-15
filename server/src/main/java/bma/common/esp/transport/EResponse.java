@@ -6,6 +6,7 @@ import java.util.List;
 import bma.common.esp.common.FramerCommon;
 import bma.common.esp.exception.EspExecption;
 import bma.common.esp.framer.ESNPDataFramer;
+import bma.common.esp.framer.ESNPErrorFramer;
 import bma.common.esp.framer.ESNPMesNoFramer;
 import bma.common.esp.framer.ESNPMesSnoFramer;
 import bma.common.esp.framer.ESNPMesTypeFramer;
@@ -40,6 +41,11 @@ public class EResponse {
 	 * 数据
 	 */
 	private List<ESNPDataFramer> dataList;
+	
+	/**
+	 * 错误
+	 */
+	private ESNPErrorFramer error;
 	
 	public EResponse(){
 		dataList = new ArrayList<ESNPDataFramer>();
@@ -79,6 +85,17 @@ public class EResponse {
 		dataF.setData(obj);	
 		this.dataList.add(dataF);
 	}
+	
+	/**
+	 * 设置错误信息
+	 * @param errorMes
+	 */
+	public void setError(String errorMes){
+		ESNPErrorFramer errorF = new ESNPErrorFramer();
+		errorF.setFramerType(FramerCommon.FRAMER_TYPE_ERROR);
+		errorF.setErrorMes(errorMes);
+		this.setError(errorF);
+	}
 
 	public ESNPMesNoFramer getMesNo() {
 		return mesNo;
@@ -111,5 +128,14 @@ public class EResponse {
 	public void setDataList(List<ESNPDataFramer> dataList) {
 		this.dataList = dataList;
 	}
+
+	public ESNPErrorFramer getError() {
+		return error;
+	}
+
+	public void setError(ESNPErrorFramer error) {
+		this.error = error;
+	}
+	
 	
 }

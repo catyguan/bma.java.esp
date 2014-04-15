@@ -106,4 +106,22 @@ public class FramerTest {
 		System.out.println("end");
 		
 	}
+	
+	@Test
+	public void testError() throws IOException {
+		
+		ESNPErrorFramer af = new ESNPErrorFramer();
+		af.setFramerType(0x1D);
+		af.setErrorMes("这是一个异常信息!");
+		
+		ByteArrayOutputStream bos32 = new ByteArrayOutputStream();
+		af.errorFramerToOutputStream(bos32);
+		System.out.println(StringUtil.byte2Hex(bos32.toByteArray()));
+		
+		ByteArrayInputStream bisS = new ByteArrayInputStream(bos32.toByteArray());
+		
+		ESNPErrorFramer af1 = new ESNPErrorFramer(bisS.read(),bisS);
+		System.out.println("end");
+		
+	}
 }

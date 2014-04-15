@@ -25,21 +25,30 @@ public class ESNPServerProcessor extends EProcessor{
 		Map<Integer,String> adMap = eRequest.getAddressService();
 		
 		if(!adMap.containsKey(ESNPAddressFramer.ADDRESS_SERVICE)){
+			log.error("[ESNPServerProcessor] => do not find service address! ");
 			throw new EspExecption("do not find service address!");
 		}
 		
 		if(!adMap.containsKey(ESNPAddressFramer.ADDRESS_OP)){
+			log.error("[ESNPServerProcessor] => do not find op address! ");
 			throw new EspExecption("do not find op address!");
 		}	
 		
-		//获取handle
-		EHandler handle = handleMap.get(adMap.get(ESNPAddressFramer.ADDRESS_SERVICE));
+		try {
+			//获取handle
+			EHandler handle = handleMap.get(adMap.get(ESNPAddressFramer.ADDRESS_SERVICE));
 
-		//获取操作
-		EFunction function = handle.getFunctionMap().get(adMap.get(ESNPAddressFramer.ADDRESS_OP));
-		
-		//执行
-		function.execute(eTransport, eRequest, eResponse);	
+			//获取操作
+			EFunction function = handle.getFunctionMap().get(adMap.get(ESNPAddressFramer.ADDRESS_OP));
+			
+			//执行
+			function.execute(eTransport, eRequest, eResponse);	
+			
+		} catch (Exception e) {
+			log.error("[ESNPServerProcessor] => error : " + e.getMessage());
+			throw new EspExecption(e.getMessage());
+		}
+
 	}
 
 	public Map<String, EHandler> getHandleMap() {
@@ -48,6 +57,18 @@ public class ESNPServerProcessor extends EProcessor{
 
 	public void setHandleMap(Map<String, EHandler> handleMap) {
 		this.handleMap = handleMap;
+	}
+
+	@Override
+	public void exceptionHandle(ESNPServerScoket eTransport,
+			EResponse eResponse, Exception e) {
+		try {
+			eResponse.setError(e.getMessage());
+			eTransport.write(eResponse);
+			eTransport.flush();
+		} catch (IOException e1) {
+			log.error("[ESNPServerProcessor] => inner error " + e1.getMessage());
+		}
 	}
 
 	

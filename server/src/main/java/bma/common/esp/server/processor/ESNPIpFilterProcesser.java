@@ -16,8 +16,6 @@ import bma.common.esp.transport.EResponse;
  */
 public class ESNPIpFilterProcesser extends EProcessor {
 	
-	final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ESNPIpFilterProcesser.class);
-	
 	/**
 	 * 服务器ip限制Map
 	 */
@@ -61,6 +59,20 @@ public class ESNPIpFilterProcesser extends EProcessor {
 
 	public void setServerIpMap(Map<String, String> serverIpMap) {
 		this.serverIpMap = serverIpMap;
+	}
+
+	@Override
+	public void exceptionHandle(ESNPServerScoket eTransport,
+			EResponse eResponse, Exception e) {
+		
+		try {
+			eResponse.setError(e.getMessage());
+			eTransport.write(eResponse);
+			eTransport.flush();
+		} catch (IOException e1) {
+			log.error("[ESNPIpFilterProcesser] => inner error " + e1.getMessage());
+		}
+
 	}
 	
 	
