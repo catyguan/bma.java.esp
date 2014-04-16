@@ -26,7 +26,6 @@ public class ESNPIpFilterProcesser extends EProcessor {
 			EResponse eResponse) throws IOException {
 		// TODO 处理服务ip匹配
 		String host = eTransport.getRemoteHost();
-		System.out.println(host);
 		
 		Map<Integer,String> adMap = eRequest.getAddressService();
 		

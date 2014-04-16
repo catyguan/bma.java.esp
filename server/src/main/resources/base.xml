@@ -19,17 +19,25 @@
 	
 	<!-- 登录 -->
 	<bean id="loginProcessor" class="bma.common.esp.server.processor.ESNPLoginProcessor" >
-
+		<property name="loginHandle" ref="login_handler"></property>
 	</bean>	
 	
 	<!-- 服务ip限制 -->
 	<bean id="ipProcessor" class="bma.common.esp.server.processor.ESNPIpFilterProcesser" >
 		<property name="serverIpMap" >
 			<map>
-				<entry key="test" value="127.0.0.2"/>
+				<entry key="test" value="127.0.0.1"/>
 			</map>
 		</property>
 	</bean>	
+	
+	<!-- esnp login -->
+    <bean id="loginServer" class="bma.common.esp.login.ESNPLoginServer">
+	</bean>
+	
+	<bean id="login_handler" class="bma.common.esp.login.ESNPLogin">
+		<property name="iface" ref="loginServer"></property>
+	</bean>
 	
 	<!-- test -->
     <bean id="testServer" class="bma.common.esp.test.TestServer">

@@ -20,6 +20,8 @@ import bma.common.esp.transport.FramerDncoderFactory;
 import bma.common.netty.SupportedNettyChannel;
 
 public class ESNPServerScoket implements SupportedNettyChannel{
+	
+	protected boolean isLogin;
 
 	protected Channel channel;
 	private ChannelBuffer readBuffer;
@@ -142,6 +144,15 @@ public class ESNPServerScoket implements SupportedNettyChannel{
 		InetSocketAddress s = (InetSocketAddress) channel.getRemoteAddress();
 		return s.getPort();
 	}
+
+	public boolean isLogin() {
+		return isLogin;
+	}
+
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
+	}
+	
 	
 	
 }
