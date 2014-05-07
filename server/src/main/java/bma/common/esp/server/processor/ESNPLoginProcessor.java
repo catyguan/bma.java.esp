@@ -16,7 +16,7 @@ import bma.common.esp.transport.EResponse;
  */
 public class ESNPLoginProcessor extends EProcessor {
 	
-	private static String LOGIN_SERVICE = "espnLogin";
+	private static String LOGIN_SERVICE = "esnpLogin";
 	
 	//登录
 	private EHandler loginHandle;
@@ -44,16 +44,23 @@ public class ESNPLoginProcessor extends EProcessor {
 					
 					//执行
 					function.execute(eTransport, eRequest, eResponse);	
-							
-				} 
+					if(eTransport.isLogin()){
+						log.info("[ESNPLoginProcessor] => isLogin !");
+					} else {
+						log.error("[ESNPLoginProcessor] => client is fail login ! ");
+						throw new EspExecption("[ESNPLoginProcessor] => client is fail login ! ");
+					}							
+				} else {
+					if(eTransport.isLogin()){
+						log.info("[ESNPLoginProcessor] => isLogin !");
+					} else {
+						log.error("[ESNPLoginProcessor] => client is fail login ! ");
+						throw new EspExecption("[ESNPLoginProcessor] => client is fail login ! ");
+					}
+				}
 			} 
 			
-			if(eTransport.isLogin()){
-				log.info("[ESNPLoginProcessor] => isLogin !");
-			} else {
-				log.error("[ESNPLoginProcessor] => client is fail login ! ");
-				throw new EspExecption("[ESNPLoginProcessor] => client is fail login ! ");
-			}
+
 			
 		} catch (Exception e) {
 			log.error("[ESNPLoginProcessor] => error : " + e.getMessage());
