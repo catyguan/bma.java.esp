@@ -7,14 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import bma.common.esp.client.core.ESNPClient;
+import bma.common.esp.client.core.ESNPSocketClient;
 import bma.common.esp.test.AddTest;
 import bma.common.langutil.testcase.SpringTestcaseUtil;
 
 public class AddTC {
 	
 	FileSystemXmlApplicationContext context;
-	ESNPClient client;
+	ESNPSocketClient client;
 	AddTest add;
 
 	@Before
@@ -23,7 +23,7 @@ public class AddTC {
 		context = new SpringTestcaseUtil.ApplicationContextBuilder().project("src/test/resources/spring_server.xml")
 				.build();
 
-		client = context.getBean("client", ESNPClient.class);
+		client = context.getBean("client", ESNPSocketClient.class);
 		add = context.getBean("add", AddTest.class);
 		System.out.println(client.toString());
 		System.out.println(add.toString());

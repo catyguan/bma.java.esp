@@ -11,7 +11,7 @@
 	<context:annotation-config />
     
     <!-- client -->
-	<bean id="client" class="bma.common.esp.client.core.ESNPClient">		
+	<bean id="client" class="bma.common.esp.client.core.ESNPSocketClient">		
 		<property name="serverHost" value="127.0.0.1" />
 		<property name="serverPost" value="1081" />			 
 	</bean>
