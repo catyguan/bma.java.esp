@@ -17,10 +17,15 @@ public class ESNPServerProcessor extends EProcessor{
 	 * 服务器业务处理Map
 	 */
 	private Map<String,EHandler> handleMap;
+	
+	//threadlocal
+	protected static ThreadLocal<ESNPServerScoket> scoketThreadLocal = new ThreadLocal<ESNPServerScoket>();
 
 	@Override
 	public void processor(ESNPServerScoket eTransport,
 			ERequest eRequest, EResponse eResponse) throws IOException {
+		
+		scoketThreadLocal.set(eTransport);
 		
 		Map<Integer,String> adMap = eRequest.getAddressService();
 		
@@ -69,6 +74,10 @@ public class ESNPServerProcessor extends EProcessor{
 		} catch (IOException e1) {
 			log.error("[ESNPServerProcessor] => inner error " + e1.getMessage());
 		}
+	}
+	
+	public static ESNPServerScoket currentScoket() {
+		return scoketThreadLocal.get();
 	}
 
 	

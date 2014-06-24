@@ -10,37 +10,11 @@
 
 	<context:annotation-config />
     
-    <!-- server -->
-    <bean id="server" class="bma.common.esp.server.core.ESNPServer"
-		destroy-method="close">
-		<property name="name" value="ESNPServer"/>
-		<property name="port" value="1081" />
-		<property name="pipelines">
-			<list>
-				<ref bean="secureFilter" />
-			</list>
-		</property>
-		<!-- 
-		<property name="processor" ref="processor"></property>
-		 -->
-		 <property name="processorList" >
-		 	<list>
-		 	<!--
-		 		<ref bean="loginProcessor"/>
-		 		<ref bean="ipProcessor"/>
-		 	-->
-		 		<ref bean="serverProcessor"/>
-		 	</list>
-		 </property>
+    <!-- client -->
+	<bean id="client" class="bma.common.esp.client.core.ESNPSocketClient">		
+		<property name="serverHost" value="127.0.0.1" />
+		<property name="serverPost" value="1081" />			 
 	</bean>
-	
-	<!-- ip limit -->
-	<bean id="secureFilter" class="bma.common.netty.handler.ChannelHandlerIpLimit"
-		init-method="init">
-		<property name="whiteAddress">
-			<value>127.0.0.1</value>
-		</property>
-	</bean>	 
     
     <import resource="classpath:base.xml" />
 

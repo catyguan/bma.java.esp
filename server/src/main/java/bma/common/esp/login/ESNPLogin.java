@@ -23,7 +23,7 @@ public class ESNPLogin extends EHandler{
 	}
 	
 	public ESNPLogin(){
-		super.getFunctionMap().put("espnLogin", new EspnLogin());
+		super.getFunctionMap().put("login", new EspnLogin());
 	}
 	
 	public class EspnLogin extends EFunction{
