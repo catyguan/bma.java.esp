@@ -137,7 +137,7 @@ public class ESNPServerScoket implements SupportedNettyChannel{
 	
 	public String getRemoteHost(){
 		InetSocketAddress s = (InetSocketAddress) channel.getRemoteAddress();
-		return s.getHostString();
+		return s.getHostName();
 	}
 	
 	public int getRemotePort(){

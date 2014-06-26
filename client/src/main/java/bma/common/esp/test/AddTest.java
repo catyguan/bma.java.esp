@@ -115,6 +115,16 @@ public class AddTest {
 			}
 		}
 		
+		System.out.println("原id："+eResponse.getMesSno().getMesSno());
+		System.out.println("id："+eResponse.getMesNo().getMesNo());
+		System.out.println("类型："+eResponse.getMesType().getMesType());
+		if(eResponse.getDataList() != null && !eResponse.getDataList().isEmpty()){
+			for(ESNPDataFramer dd : eResponse.getDataList()){
+				System.out.println(dd.getDataName() + ":" + dd.getData());
+			}
+		}
+
+		
 		client.close();
 	}
 	

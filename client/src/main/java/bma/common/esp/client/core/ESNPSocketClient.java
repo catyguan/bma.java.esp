@@ -95,9 +95,9 @@ public class ESNPSocketClient {
 		
 		ByteArrayInputStream bin = new ByteArrayInputStream(dataByte);
 		int fType;
-		while(in.available() > 0){
-			fType = in.read();
-			FramerDncoderFactory.getEResponseFramer(eResponse, in, fType);
+		while(bin.available() > 0){
+			fType = bin.read();
+			FramerDncoderFactory.getEResponseFramer(eResponse, bin, fType);
 		}
 	}
 
