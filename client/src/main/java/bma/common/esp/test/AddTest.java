@@ -1,6 +1,5 @@
 package bma.common.esp.test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,9 +13,9 @@ import bma.common.esp.framer.ESNPAddressFramer;
 import bma.common.esp.framer.ESNPDataFramer;
 import bma.common.esp.framer.ESNPMesNoFramer;
 import bma.common.esp.framer.ESNPMesTypeFramer;
-import bma.common.esp.server.frame.ESNPFrameReader;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
+import bma.common.esp.transport.FramerReader;
 
 public class AddTest {
 	
@@ -104,12 +103,12 @@ public class AddTest {
 		
 		byte[] i32buf = new byte[4];
 		i32buf[0] = 0;
-		ESNPFrameReader.encodeFrameSize(0, i32buf);
+		FramerReader.encodeFrameSize(0, i32buf);
 		client.write(i32buf);
 		EResponse eResponse = new EResponse();
+		InputStream in = client.read();
 		while(true){
-			InputStream in = client.read();
-			if(in != null){
+			if(in != null && this.getEnd(in)){
 				client.read(in, eResponse);
 				break;
 			}
@@ -126,6 +125,25 @@ public class AddTest {
 
 		
 		client.close();
+	}
+	
+	private boolean getEnd(InputStream in) throws IOException{
+		byte[] i32buf = new byte[4];
+		in.mark(in.available());
+		int type;
+		int length;
+		boolean result = false;
+		while(in.available() >= 4){
+			in.read(i32buf);
+			type = i32buf[0];
+			length = FramerReader.decodeFrameSize(i32buf);
+			
+			if(type == 0 && length == 0){
+				in.reset();
+				result = true;			
+			}
+		}
+		return result;
 	}
 	
 
