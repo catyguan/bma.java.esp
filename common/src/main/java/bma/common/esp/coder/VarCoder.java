@@ -3,6 +3,8 @@ package bma.common.esp.coder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
+import java.util.Map;
 
 import bma.common.esp.common.VarTypeCommon;
 import bma.common.esp.utils.BaseTypeTool;
@@ -61,6 +63,22 @@ public class VarCoder implements BaseCoder {
 				return ;
 			}
 			throw new IllegalArgumentException("not string type");
+		case VarTypeCommon.TYPE_MAP://map
+			if (obj instanceof Map) {
+				Map<String,Object> s = (Map<String,Object>) obj;
+				buf.write(type);
+				MapCoder.MapEncoder(buf, s);
+				return ;
+			}
+			throw new IllegalArgumentException("not map type");
+		case VarTypeCommon.TYPE_LIST://list
+			if (obj instanceof List) {
+				List<Object> s = (List<Object>) obj;
+				buf.write(type);
+				ListCoder.listEncoder(buf, s);
+				return ;
+			}
+			throw new IllegalArgumentException("not list type");
 		default:
 			break;
 		}
@@ -87,6 +105,10 @@ public class VarCoder implements BaseCoder {
 			return Float64Coder.float64Decoder(buf);
 		case VarTypeCommon.TYPE_LEN_STRING://lenString
 			return LenStringCoder.lenStringDecoder(buf);
+		case VarTypeCommon.TYPE_MAP://lenString
+			return MapCoder.MapDecoder(buf);
+		case VarTypeCommon.TYPE_LIST://lenString
+			return ListCoder.listDecoder(buf);
 		default:
 			break;
 		}
