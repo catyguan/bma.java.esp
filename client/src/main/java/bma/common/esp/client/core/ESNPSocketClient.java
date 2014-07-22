@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import bma.common.esp.base.EBase;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
 import bma.common.esp.transport.FramerDncoderFactory;
@@ -99,6 +100,32 @@ public class ESNPSocketClient {
 			fType = bin.read();
 			FramerDncoderFactory.getEResponseFramer(eResponse, bin, fType);
 		}
+	}
+	
+	/**
+	 * 发送esnp协议
+	* @Title: sendEsnp 
+	* @Description: TODO
+	* @param @param opName
+	* @param @param args    
+	* @return void    
+	* @throws
+	 */
+	public void sendEsnp(String opName, EBase args){
+		
+	}
+	
+	/**
+	 * 接受esnp响应
+	* @Title: reviceEsnp 
+	* @Description: TODO
+	* @param @param args
+	* @param @param opName    
+	* @return void    
+	* @throws
+	 */
+	public void reviceEsnp(EBase args, String opName){
+		
 	}
 
 	public String getServerHost() {
