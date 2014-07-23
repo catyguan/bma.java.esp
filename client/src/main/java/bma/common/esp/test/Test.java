@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import bma.common.esp.client.core.ESNPSocketClient;
 import bma.common.esp.exception.EspExecption;
+import bma.common.esp.po.EsnpAddressPo;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
 import bma.common.esp.base.EBase;
@@ -29,12 +30,12 @@ public class Test{
 	      add_arg args = new add_arg();
 	      args.a = a;
 	      args.b = b;
-	      sendEsnp("add", args);
+	      sendEsnp(new EsnpAddressPo("Test","add"), args);
 	    }
 
 	    public int recv_add() throws EspExecption {
 	      add_result result = new add_result();
-	      reviceEsnp(result, "add");
+	      reviceEsnp(result, new EsnpAddressPo("Test","add"));
 	      return result.c;
 	    }
 

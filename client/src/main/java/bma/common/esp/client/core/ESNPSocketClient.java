@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import bma.common.esp.base.EBase;
+import bma.common.esp.po.EsnpAddressPo;
 import bma.common.esp.transport.ERequest;
 import bma.common.esp.transport.EResponse;
 import bma.common.esp.transport.FramerDncoderFactory;
@@ -106,12 +107,12 @@ public class ESNPSocketClient {
 	 * 发送esnp协议
 	* @Title: sendEsnp 
 	* @Description: TODO
-	* @param @param opName
+	* @param @param esnpAddressPo
 	* @param @param args    
 	* @return void    
 	* @throws
 	 */
-	public void sendEsnp(String opName, EBase args){
+	public void sendEsnp(EsnpAddressPo esnpAddressPo, EBase args){
 		
 	}
 	
@@ -120,11 +121,11 @@ public class ESNPSocketClient {
 	* @Title: reviceEsnp 
 	* @Description: TODO
 	* @param @param args
-	* @param @param opName    
+	* @param @param esnpAddressPo    
 	* @return void    
 	* @throws
 	 */
-	public void reviceEsnp(EBase args, String opName){
+	public void reviceEsnp(EBase args, EsnpAddressPo esnpAddressPo){
 		
 	}
 
